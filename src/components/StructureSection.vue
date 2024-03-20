@@ -1,36 +1,12 @@
 <template>
-  <template>
-    <div :class="containerClasses">
-      <h1 :class="titleClasses">{{ title }}</h1>
-      <div class="prose">
-        <Image v-if="imageUrl" :src="imageUrl" alt="Article Image" width="100%" height="100%" />
-        <slot></slot>
-      </div>
+  <div :class="containerClasses">
+    <h1 :class="titleClasses">{{ title }}</h1>
+    <div class="prose">
+      <Image v-if="imageUrl" :src="imageUrl" alt="Article Image" width="100%" height="100%" />
+      <slot></slot>
     </div>
-  </template>
+  </div>
 
-  <script setup>
-  import Image from 'primevue/image';
-  import { ref, computed } from 'vue';
-
-  const props = defineProps({
-    title: {
-      type: String,
-      required: true,
-    },
-    imageUrl: {
-      type: String,
-      default: '',
-    },
-  });
-
-  const containerClasses = computed(() => ['px-14', 'mx-20', 'pt-10s', 'mt-5']);
-  const titleClasses = computed(() => ['text-3xl', 'font-bold', 'mb-4']);
-  </script>
-
-  <style>
-  /* Add your styles here */
-  </style>
     <Breadcrumb :home="home" :model="breadcrumbItems">
       <template #item="{ item, props }">
         <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
@@ -57,7 +33,7 @@
 <script setup>
 import Breadcrumb from 'primevue/breadcrumb';
 import Image from 'primevue/image';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const props = defineProps({
   title: {
