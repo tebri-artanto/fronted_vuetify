@@ -5,7 +5,6 @@
       <Image v-if="imageUrl" :src="imageUrl" alt="Article Image" width="100%" height="100%" />
       <slot></slot>
     </div>
-  </div>
 
     <Breadcrumb :home="home" :model="breadcrumbItems">
       <template #item="{ item, props }">
