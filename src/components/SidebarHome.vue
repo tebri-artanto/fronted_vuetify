@@ -1,0 +1,159 @@
+<template>
+  <div class="card">
+    <div class="card flex">
+      <Sidebar v-model:visible="visible" class="w-10">
+        <template #container="{ closeCallback }">
+          <div class="flex flex-col h-full w-auto">
+            <div class="flex items-center justify-between px-4 pt-4 shrink-0">
+              <span class="inline-flex items-center gap-2">
+                <a href="/home">
+                  <img
+                    src="../assets/logo_5edc9be17c880.png"
+                    alt="Image"
+                    width="200px"
+                  />
+                </a>
+              </span>
+              <span>
+                <Button
+                  type="button"
+                  @click="closeCallback"
+                  icon="pi pi-times"
+                  rounded
+                  outlined
+                  class="h-8 w-8"
+                ></Button>
+              </span>
+            </div>
+            <div class="overflow-y-auto mt-4">
+              <ul class="list-none px-4 m-0">
+                <li>
+                  <ul class="list-none p-0 m-0 overflow-hidden">
+                    <li>
+                      <a
+                        href="/home/activity"
+                        v-ripple
+                        class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
+                      >
+                        <i class="pi pi-chart-bar mr-2"></i>
+                        <span class="font-medium">Aktivitas</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                      href="/home/dataKaryawan"
+                        v-ripple
+                        class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
+                      >
+                        <i class="pi pi-folder mr-2"></i>
+                        <span class="font-medium">Data Karyawan</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                      href="/home/dpa"
+                        v-ripple
+                        class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
+                      >
+                        <i class="pi pi-folder mr-2"></i>
+                        <span class="font-medium">DPA</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                      href="/home/rka"
+                        v-ripple
+                        class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
+                      >
+                        <i class="pi pi-folder mr-2"></i>
+                        <span class="font-medium">RKA</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                      href="/home/kegiatanSekretariat"
+                        v-ripple
+                        class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
+                      >
+                        <i class="pi pi-folder mr-2"></i>
+                        <span class="font-medium">Kegiatan Sekretariat</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                      href="/home/dataaset"
+                        v-ripple
+                        class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
+                      >
+                        <i class="pi pi-folder mr-2"></i>
+                        <span class="font-medium">Data Aset</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                      href="/home/dkk"
+                        v-ripple
+                        class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
+                      >
+                        <i class="pi pi-folder mr-2"></i>
+                        <span class="font-medium"
+                          >Data Kegiatan Kepegawaian</span
+                        >
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                      href="/home/dbhcht"
+                        v-ripple
+                        class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
+                      >
+                        <i class="pi pi-folder mr-2"></i>
+                        <span class="font-medium">DPHCHT</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        @click="logout"
+                        v-ripple
+                        class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
+                      >
+                        <i class="pi pi-cog mr-2"></i>
+                        <span class="font-medium">Logout</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </template>
+      </Sidebar>
+      <Button icon="pi pi-bars" @click="visible = true" />
+    </div>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import Button from 'primevue/button'
+import Avatar from 'primevue/avatar'
+import Sidebar from 'primevue/sidebar'
+import router from '../router/index'
+
+const logout = () => {
+  // Remove the authentication cookie
+  document.cookie = 'userLogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+
+    // Remove the token from local storage
+    localStorage.removeItem('userLogin')
+    localStorage.removeItem('token')
+
+  // Redirect the user to the login page
+  router.push('/login')
+}
+
+const visible = ref(false)
+</script>
+script
