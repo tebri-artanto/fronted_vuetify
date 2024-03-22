@@ -18,7 +18,6 @@ const routes = [
       {
         path: '/',
         component: () => import('@/pages/LandingPage.vue'),
-        slug: 'home',
         meta: { title: 'Landing Page' },
       },
       {
@@ -180,7 +179,7 @@ function getCookie(name) {
   return cookieValue ? cookieValue.pop() : '';
 }
 const router = createRouter({
-  history: createWebHistory('/my-app'),
+  history: createWebHistory(),
   routes,
 })
 
