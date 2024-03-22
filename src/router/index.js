@@ -25,6 +25,7 @@ const routes = [
       {
         path: '/',
         component: () => import('@/pages/LandingPage.vue'),
+        slug: 'home',
         meta: { title: 'Landing Page' },
       },
       {
@@ -51,6 +52,23 @@ const routes = [
         path: '/strukturOrganisasi',
         component: () => import('@/pages/profil/StrukturOrganisasiPage.vue'),
         meta: { title: 'Struktur Organisasi' },
+      },
+      {
+        path: '/bidang/sekretariat',
+        component: () => import('@/pages/Bidang/SekretariatPage.vue'),
+        meta: { title: 'Bidang Sekretariat' },
+        slug: 'sekretariat',
+      },
+      {
+        path: '/bidang/informatika',
+        component: () => import('@/pages/Bidang/InformatikaPage.vue'),
+        meta: { title: 'Bidang Informatika' },
+        slug: 'informatika',
+      },
+      {
+        path: '/bidang/komunikasi',
+        component: () => import('@/pages/Bidang/KomunikasiPage.vue'),
+        meta: { title: 'Bidang Komunikasi' },
       }
     ],
 

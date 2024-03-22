@@ -64,23 +64,23 @@ const items = ref([
     route: '/strukturOrganisasi'
   },
   {
-    label: 'Pofil',
+    label: 'Bidang',
     icon: 'pi pi-search',
     items: [
       {
-        label: 'Kata Pengantar',
+        label: 'Sekretariat',
         icon: 'pi pi-bolt',
-        route: '/profile/intro'
+        route: '/bidang/sekretariat'
       },
       {
-        label: 'Blocks',
+        label: 'Informatika & Persandian',
         icon: 'pi pi-server',
-        route: '/profile/blocks'
+        route: '/bidang/informatika'
       },
       {
-        label: 'UI Kit',
+        label: 'Komunikadi & Statistik',
         icon: 'pi pi-pencil',
-        route: '/profile/ui-kit'
+        route: '/bidang/komunikasi'
       },
       {
         separator: true
@@ -93,13 +93,13 @@ const items = ref([
             label: 'Apollo',
             icon: 'pi pi-palette',
             badge: 2,
-            route: '/profile/templates/apollo'
+            route: '/bidang/templates/apollo'
           },
           {
             label: 'Ultima',
             icon: 'pi pi-palette',
             badge: 3,
-            route: '/profile/templates/ultima'
+            route: '/bidang/templates/ultima'
           }
         ]
       }

@@ -1,12 +1,6 @@
 <template>
-  <div :class="containerClasses">
-    <h1 :class="titleClasses">{{ title }}</h1>
-    <div class="prose">
-      <Image v-if="imageUrl" :src="imageUrl" alt="Article Image" width="100%" height="100%" />
-      <slot></slot>
-    </div>
-
-    <Breadcrumb :home="home" :model="breadcrumbItems">
+<div :class="containerClasses">
+       <Breadcrumb :home="home" :model="breadcrumbItems">
       <template #item="{ item, props }">
         <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
           <a :href="href" v-bind="props.action" @click="navigate">

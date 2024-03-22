@@ -25,7 +25,6 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 // Composables
 import { createApp } from 'vue'
-
 const app = createApp(App)
 
 registerPlugins(app)
