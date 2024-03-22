@@ -13,12 +13,8 @@
 
 <script setup>
 import StructureSection from '../../components/StructureSection.vue';
-import { ref, onMounted } from 'vue';
-
-import { useRoute } from 'vue-router';
+import { onMounted } from 'vue';
 import { useSanityFetcher } from 'vue-sanity'
-// const artikel = ref(null);
-const route = useRoute();
 
 onMounted(async () => {
 

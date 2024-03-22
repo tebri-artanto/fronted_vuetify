@@ -26,22 +26,8 @@
 <script setup>
 import Breadcrumb from 'primevue/breadcrumb';
 import Image from 'primevue/image';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
-const props = defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  imageUrl: {
-    type: String,
-    default: '',
-  },
-  breadcrumbItems: {
-    type: Array,
-    required: true,
-  },
-});
 
 const home = {
   icon: 'pi pi-home',
@@ -49,7 +35,6 @@ const home = {
 };
 
 const containerClasses = computed(() => ['px-14', 'mx-20', 'pt-10s', 'mt-5']);
-  const titleClasses = computed(() => ['text-3xl', 'font-bold', 'mb-4']);
 </script>
 
 <style>

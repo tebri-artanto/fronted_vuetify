@@ -13,14 +13,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/components/LandingLayout.vue'),
-    // beforeEnter: (to, from, next) => {
-    //   const token = getCookie('token');
-    //   if (token) {
-    //     next('/');
-    //   } else {
-    //     next();
-    //   }
-    // },
+
     children: [
       {
         path: '/',

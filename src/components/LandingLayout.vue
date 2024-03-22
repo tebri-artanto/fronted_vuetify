@@ -26,7 +26,7 @@
               <li>
                 <button
                   type="button"
-                  class="inline-flex border w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 border border-surface-200 dark:border-surface-600 rounded"
+                  class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 border border-surface-200 dark:border-surface-600 rounded"
                   @click="onThemeToggler"
                 >
                   <i :class="`dark:text-white pi ${iconClass}`" />
@@ -45,12 +45,11 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import Menubar from 'primevue/menubar';
 import Button from 'primevue/button';
 import ScrollTop from 'primevue/scrolltop';
 
-const router = useRouter();
+
 
 const items = ref([
   {
@@ -82,27 +81,7 @@ const items = ref([
         icon: 'pi pi-pencil',
         route: '/bidang/komunikasi'
       },
-      {
-        separator: true
-      },
-      {
-        label: 'Templates',
-        icon: 'pi pi-palette',
-        items: [
-          {
-            label: 'Apollo',
-            icon: 'pi pi-palette',
-            badge: 2,
-            route: '/bidang/templates/apollo'
-          },
-          {
-            label: 'Ultima',
-            icon: 'pi pi-palette',
-            badge: 3,
-            route: '/bidang/templates/ultima'
-          }
-        ]
-      }
+
     ]
   },
   {
