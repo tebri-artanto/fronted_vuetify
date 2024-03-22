@@ -180,7 +180,7 @@ function getCookie(name) {
   return cookieValue ? cookieValue.pop() : '';
 }
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/my-app'),
   routes,
 })
 
