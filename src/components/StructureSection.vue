@@ -16,7 +16,7 @@
     <div class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold mb-4">{{ title }}</h1>
       <div class="prose">
-        <Image v-if="imageUrl" :src="imageUrl" alt="Article Image" width="100%" height="100%" />
+        <Image v-if="imageUrl" :src="imageUrl" alt="Article Image" width="100%" height="100%" preview/>
         <slot></slot>
       </div>
     </div>
@@ -26,8 +26,23 @@
 <script setup>
 import Breadcrumb from 'primevue/breadcrumb';
 import Image from 'primevue/image';
-import { computed } from 'vue';
+import {ref,  computed } from 'vue';
 
+
+const props = defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    default: '',
+  },
+  breadcrumbItems: {
+    type: Array,
+    required: true,
+  },
+});
 
 const home = {
   icon: 'pi pi-home',

@@ -19,7 +19,7 @@
             <Button label="Login" href="/login" raised>
               <a href="/login" class="text-white">Login</a>
             </Button>
-            <Button label="Register" severity="secondary" raised>
+            <Button label="Register" href="/register" severity="secondary" raised>
               <a href="/register" class="text-white">Register</a>
             </Button>
             <ul class="flex list-none m-0 p-0 gap-2 items-center">
