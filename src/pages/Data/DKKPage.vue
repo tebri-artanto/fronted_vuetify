@@ -278,7 +278,7 @@ const fileInput = defineInputBinds('fileInput')
 
 const fetchData = async () => {
   try {
-    const response = await axios.get(`http://localhost:8000/dkk/getall`)
+    const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/dkk/getall`)
     dpaData.value = response.data.data
     dpaData.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     loading.value = false
@@ -304,7 +304,7 @@ const tambahDKK = async () => {
       return
     }
     const response = await axios.post(
-      'http://localhost:8000/dkk/upload',
+      `${import.meta.env.VITE_APP_API_URL}/dkk/upload`,
       formData,
       {
         headers: {
@@ -361,7 +361,7 @@ const requireConfirmation = (id) => {
 
 const deleteData = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:8000/dkk/delete/${id}`);
+    const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/dkk/delete/${id}`);
     // Handle the response
     console.log(response.data);
     console.log('Data berhasil dihapus');

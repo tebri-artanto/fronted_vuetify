@@ -304,7 +304,7 @@ const fileInput = defineInputBinds('fileInput')
 
 const fetchData = async () => {
   try {
-    const response = await axios.get(`http://localhost:8000/dataaset/getall`)
+    const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/dataaset/getall`)
     dpaData.value = response.data.data
     dpaData.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     loading.value = false
@@ -331,7 +331,7 @@ const tambahDataAset = async () => {
       return
     }
     const response = await axios.post(
-      'http://localhost:8000/dataaset/upload',
+      `${import.meta.env.VITE_APP_API_URL}/dataaset/upload`,
       formData,
       {
         headers: {

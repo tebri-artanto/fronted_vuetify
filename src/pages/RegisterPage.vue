@@ -184,7 +184,7 @@ const password = defineInputBinds('password')
 const onSubmit = handleSubmit(async (values) => {
   try {
     // Submit to API using Axios
-    const response = await axios.post( 'http://localhost:8000/register', values)
+    const response = await axios.post( `${import.meta.env.VITE_APP_API_URL}/register`, values)
     // Handle the response
     console.log(response.data)
     // Redirect to another page

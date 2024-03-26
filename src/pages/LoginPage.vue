@@ -128,11 +128,13 @@ const toast = useToast();
 // Define fields
 const username = defineInputBinds("username");
 const password = defineInputBinds("password");
+const API = import.meta.env.VITE_APP_API_URL;
+console.log(API);
 const onSubmit = handleSubmit(async (values) => {
 
   try {
     // Submit to API using Axios
-    const response = await axios.post( 'http://localhost:8000/login', values)
+    const response = await axios.post( `${import.meta.env.VITE_APP_API_URL}/login`, values)
     document.cookie = `token=${response.data.token}`;
     document.cookie = `userLogin=${response.data.userlogin}`;
     console.log(response.data.data)

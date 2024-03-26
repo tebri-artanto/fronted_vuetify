@@ -306,7 +306,7 @@ const fileInput = defineInputBinds('fileInput')
 
 const fetchDpaData = async () => {
   try {
-    const response = await axios.get(`http://localhost:8000/dpa/getall`)
+    const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/dpa/getall`)
     dpaData.value = response.data.data
     dpaData.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     loading.value = false
@@ -332,7 +332,7 @@ const tambahDpa = async () => {
       return
     }
     const response = await axios.post(
-      'http://localhost:8000/dpa/upload',
+      `${import.meta.env.VITE_APP_API_URL}/dpa/upload`,
       formData,
       {
         headers: {
@@ -389,7 +389,7 @@ const requireConfirmation = (id) => {
 
 const deleteData = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:8000/dpa/delete/${id}`);
+    const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/dpa/delete/${id}`);
     // Handle the response
     console.log(response.data);
     console.log('Data berhasil dihapus');

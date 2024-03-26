@@ -257,7 +257,7 @@ const nip = defineInputBinds('nip')
 
 const fetchKaryawanData = async () => {
   try {
-    const response = await axios.get(`http://localhost:8000/karyawan/getall`)
+    const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/karyawan/getall`)
     karyawanData.value = response.data.data
     karyawanData.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     loading.value = false
@@ -269,7 +269,7 @@ const fetchKaryawanData = async () => {
 const tambahKaryawan = handleSubmit(async (values) => {
   try {
 
-    const response = await axios.post( 'http://localhost:8000/karyawan/add', values)
+    const response = await axios.post( `${import.meta.env.VITE_APP_API_URL}/karyawan/add`, values)
 
     // Handle the response
     toast.add({
@@ -317,7 +317,7 @@ const requireConfirmation = (id) => {
 
 const deleteData = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:8000/Karyawan/delete/${id}`);
+    const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/Karyawan/delete/${id}`);
     // Handle the response
     console.log(response.data);
     console.log('Data berhasil dihapus');

@@ -251,7 +251,7 @@ const formatDateTable = (date) => {
 onMounted(() => {
   const usersLogin = localStorage.getItem('userLogin')
   console.log(usersLogin)
-  axios.get(`http://localhost:8000/user/${usersLogin}/activities`).then(response => {
+  axios.get(`${import.meta.env.VITE_APP_API_URL}/user/${usersLogin}/activities`).then(response => {
     activityData.value = response.data
     activityData.value.forEach((data) => {
       data.date = formatDateTable(data.date)
@@ -301,7 +301,7 @@ const tambahActivity = async () => {
     formData.append('owner', localStorage.getItem('userLogin'))
     console.log(formData)
     const response = await axios.post(
-      'http://localhost:8000/activities/upload',
+     `${import.meta.env.VITE_APP_API_URL}/activities/upload`,
       formData,
       {
         headers: {
