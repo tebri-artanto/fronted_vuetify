@@ -788,7 +788,7 @@ const tambahAktivitas = async () => {
     toast.add({
       severity: 'error',
       summary: 'Error',
-      detail: 'Invalid activity or namaaktivitas'
+      detail: error,
     })
     // Handle the error
     console.error(error)
