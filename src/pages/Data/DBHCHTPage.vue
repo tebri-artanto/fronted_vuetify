@@ -304,7 +304,7 @@ const tambahDBHCHT = async () => {
       return
     }
     const response = await axios.post(
-     `${import.meta.env.VITE_APP_API_URL}"/dbhcht/upload`,
+     `${import.meta.env.VITE_APP_API_URL}/dbhcht/upload`,
       formData,
       {
         headers: {

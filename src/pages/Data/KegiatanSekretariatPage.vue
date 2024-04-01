@@ -38,7 +38,7 @@
                 <template #content>
                   <div class="sm:mx-auto sm:w-full sm:max-w-md">
                     <div>
-                      <form class="space-y-2" @submit.prevent="tambahDpa">
+                      <form class="space-y-2" @submit.prevent="tambahKegSek">
                         <div>
                           <label for="namaKegiatan" class="block text-sm font-medium">
                             Nama Kegiatan
@@ -164,7 +164,7 @@
       <template #content>
         <DataTable
           v-model:filters="filters"
-          :value="dpaData"
+          :value="kegSekData"
           paginator
           :rows="10"
           dataKey="id"
@@ -275,7 +275,7 @@ import Calendar from 'primevue/calendar'
 const visible = ref(false)
 
 
-const dpaData = ref()
+const kegSekData = ref()
 const filters = ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   judul: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -347,15 +347,15 @@ const fileInput = defineInputBinds('fileInput')
 const fetchData = async () => {
   try {
     const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/kegsek/getall`)
-    dpaData.value = response.data.data
-    dpaData.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    kegSekData.value = response.data.data
+    kegSekData.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     loading.value = false
   } catch (error) {
     console.error(error)
   }
 }
 
-const tambahDpa = async () => {
+const tambahKegSek = async () => {
   try {
     const formData = new FormData()
     formData.append('deskripsi', deskripsi.value.value)
