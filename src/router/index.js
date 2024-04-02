@@ -46,6 +46,16 @@ const routes = [
         meta: { title: 'Struktur Organisasi' },
       },
       {
+        path: '/profil/kepalaDinas',
+        component: () => import('@/pages/profil/KepalaDinasPage.vue'),
+        meta: { title: 'Kepala Dinas' },
+      },
+      {
+        path: '/profil/pejabatStruktural',
+        component: () => import('@/pages/profil/PejabatStrukturalPage.vue'),
+        meta: { title: 'Pejabat Struktural' },
+      },
+      {
         path: '/bidang/sekretariat',
         component: () => import('@/pages/Bidang/SekretariatPage.vue'),
         meta: { title: 'Bidang Sekretariat' },

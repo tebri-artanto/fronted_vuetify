@@ -58,9 +58,27 @@ const items = ref([
     route: '/'
   },
   {
-    label: 'Struktur Organisasi',
-    icon: 'pi pi-star',
-    route: '/strukturOrganisasi'
+    label: 'Profil',
+    icon: 'pi pi-search',
+    items: [
+      {
+        label: 'Struktur Organisasi',
+        icon: 'pi pi-star',
+        route: '/strukturOrganisasi'
+      },
+      {
+        label: 'Profil Kepala Dinas',
+        icon: 'pi pi-server',
+        route: '/profil/kepalaDinas'
+      },
+      {
+        label: 'Profil Pejabat Struktural',
+        icon: 'pi pi-pencil',
+        route: '/profil/pejabatStruktural'
+      },
+
+    ]
+
   },
   {
     label: 'Bidang',
