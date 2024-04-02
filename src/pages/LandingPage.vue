@@ -165,7 +165,7 @@
             <div class="w-full md:w-5/12 ml-auto mr-auto px-4">
               <div class="md:pr-12">
 
-                <h3 class="text-3xl font-semibold">Maklumat Pelayanan</h3>
+                <h3 class="text-3xl mt-4 font-semibold">Maklumat Pelayanan</h3>
                 <p class="mt-4 text-lg leading-relaxed text-gray-600">
                   “Kami siap memberikan pelayanan sesuai dengan standar pelayanan dan apabila kami tidak memberikan pelayanan sesuai dengan standar yang telah ditetapkan, kami siap menerima sanksi sesuai dengan peraturan perundang-undangan.”
                 </p>
@@ -197,8 +197,8 @@
         </div>
         <div class="container mx-auto px-4 lg:pt-24 lg:pb-64">
           <div class="flex flex-wrap text-center justify-center">
-            <div class="w-full lg:w-6/12 px-4">
-              <h2 class="text-4xl font-semibold text-white">Visi & Misi</h2>
+            <div class="w-full lg:w-6/12 px-4 mt-3">
+              <h2 class="text-4xl mt-9 font-semibold text-white">Visi & Misi</h2>
               <p class="text-lg leading-relaxed mt-4 mb-4 text-gray-500">
                 Diskominfo Klaten memiliki Visi dan Misi berupa
               </p>
