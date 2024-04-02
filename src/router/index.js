@@ -127,7 +127,7 @@ const routes = [
       {
         path: '/home/rka',
         component: () => import('@/pages/Data/RKAPage.vue'),
-        meta: { title: 'DPA' },
+        meta: { title: 'RKA' },
         beforeEnter: (to, from, next) => {
           const token = getCookie('token');
           if (token) {

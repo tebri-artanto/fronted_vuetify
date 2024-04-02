@@ -280,7 +280,7 @@ const tambahKaryawan = handleSubmit(async (values) => {
     console.log(response.data)
     console.log('Data berhasil ditambahkan')
     visible.value = false
-
+    window.location.reload()
     fetchKaryawanData()
 
   } catch (error) {
