@@ -389,7 +389,8 @@ const requireConfirmation = (id) => {
 
 const deleteData = async (id) => {
   try {
-    const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/dpa/delete/${id}`);
+    // const response = await axios.delete(`http://localhost:8000/dpa/${id}`);
+    const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/dpa/${id}`);
     // Handle the response
     console.log(response.data);
     console.log('Data berhasil dihapus');

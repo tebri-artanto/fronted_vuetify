@@ -667,9 +667,6 @@ function activityRequired (value) {
   return value ? true : 'activity tidak boleh kosong'
 }
 
-function kategoriRequired (value) {
-  return value ? true : 'Kategori tidak boleh kosong'
-}
 
 function fileRequired (value) {
   return value ? true : ''
@@ -722,7 +719,6 @@ const formatDateTable = (date) => {
 };
 const date = ref()
 const activity = defineInputBinds('activity')
-const namaaktivitas = defineInputBinds('namaaktivitas')
 const fileInput = defineInputBinds('fileInput')
 
 const fetchData = async () => {
@@ -818,7 +814,8 @@ const requireConfirmation = (id) => {
 
 const deleteData = async (id) => {
   try {
-    const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/kegsek/delete/${id}`);
+     const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/activity/${id}`);
+    // const response = await axios.delete(`http://localhost:8000/activities/${id}`);
     // Handle the response
     console.log(response.data);
     console.log('Data berhasil dihapus');
