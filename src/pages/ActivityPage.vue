@@ -814,7 +814,7 @@ const requireConfirmation = (id) => {
 
 const deleteData = async (id) => {
   try {
-     const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/activity/${id}`);
+     const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/activities/${id}`);
     // const response = await axios.delete(`http://localhost:8000/activities/${id}`);
     // Handle the response
     console.log(response.data);
