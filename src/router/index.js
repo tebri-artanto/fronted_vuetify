@@ -125,6 +125,19 @@ const routes = [
         }
       },
       {
+        path: '/home/rka',
+        component: () => import('@/pages/Data/RKAPage.vue'),
+        meta: { title: 'DPA' },
+        beforeEnter: (to, from, next) => {
+          const token = getCookie('token');
+          if (token) {
+            next();
+          } else {
+            next('/login');
+          }
+        }
+      },
+      {
         path: '/home/kegiatanSekretariat',
         component: () => import('@/pages/Data/KegiatanSekretariatPage.vue'),
         meta: { title: 'Kegiatan Sekretariat' },
