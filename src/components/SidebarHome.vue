@@ -1,6 +1,8 @@
 <template>
   <div class="card">
+    <Toast />
     <div class="card flex">
+      
       <Sidebar v-model:visible="visible" class="w-10">
         <template #container="{ closeCallback }">
           <div class="flex flex-col h-full w-auto">
@@ -41,7 +43,7 @@
                     </li>
                     <li>
                       <a
-                      href="/home/dataKaryawan"
+                        href="/home/dataKaryawan"
                         v-ripple
                         class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
                       >
@@ -51,7 +53,7 @@
                     </li>
                     <li>
                       <a
-                      href="/home/dpa"
+                        href="/home/dpa"
                         v-ripple
                         class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
                       >
@@ -61,7 +63,7 @@
                     </li>
                     <li>
                       <a
-                      href="/home/rka"
+                        href="/home/rka"
                         v-ripple
                         class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
                       >
@@ -71,7 +73,7 @@
                     </li>
                     <li>
                       <a
-                      href="/home/kegiatanSekretariat"
+                        href="/home/kegiatanSekretariat"
                         v-ripple
                         class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
                       >
@@ -81,7 +83,7 @@
                     </li>
                     <li>
                       <a
-                      href="/home/dataaset"
+                        href="/home/dataaset"
                         v-ripple
                         class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
                       >
@@ -91,7 +93,7 @@
                     </li>
                     <li>
                       <a
-                      href="/home/dkk"
+                        href="/home/dkk"
                         v-ripple
                         class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
                       >
@@ -103,7 +105,7 @@
                     </li>
                     <li>
                       <a
-                      href="/home/dbhcht"
+                        href="/home/dbhcht"
                         v-ripple
                         class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
                       >
@@ -113,7 +115,7 @@
                     </li>
                     <li>
                       <a
-                        @click="logout"
+                        @click="requireConfirmation"
                         v-ripple
                         class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
                       >
@@ -126,34 +128,64 @@
               </ul>
             </div>
           </div>
+
         </template>
       </Sidebar>
       <Button icon="pi pi-bars" @click="visible = true" />
     </div>
     <router-view></router-view>
+
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import Button from 'primevue/button'
-import Avatar from 'primevue/avatar'
 import Sidebar from 'primevue/sidebar'
 import router from '../router/index'
+import { useToast } from 'primevue/usetoast'
+import Toast from 'primevue/toast'
+import { useConfirm } from 'primevue/useconfirm'
 
 const logout = () => {
   // Remove the authentication cookie
   document.cookie = 'userLogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
 
-    // Remove the token from local storage
-    localStorage.removeItem('userLogin')
-    localStorage.removeItem('token')
+  // Remove the token from local storage
+  localStorage.removeItem('userLogin')
+  localStorage.removeItem('token')
 
   // Redirect the user to the login page
   router.push('/login')
 }
 
 const visible = ref(false)
+const toast = useToast()
+const confirm = useConfirm()
+
+const requireConfirmation = () => {
+  confirm.require({
+    group: 'headless',
+    header: 'Anda yakin ingin keluar?',
+    message: 'Silahkan konfirmasi untuk keluar',
+    accept: () => {
+      logout()
+      toast.add({
+        severity: 'info',
+        summary: 'Confirmed',
+        detail: 'Berhasil Keluar',
+        life: 3000
+      })
+    },
+    reject: () => {
+      toast.add({
+        severity: 'error',
+        summary: 'Rejected',
+        detail: 'Tidak jadi Keluar',
+        life: 3000
+      })
+    }
+  })
+}
 </script>
-script

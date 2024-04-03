@@ -82,8 +82,8 @@ const routes = [
     children: [
       {
         path: '/home',
-        component: () => import('@/pages/LandingPage.vue'),
-        meta: { title: 'Landing Page' },
+        component: () => import('@/pages/DashboardPage.vue'),
+        meta: { title: 'Dashboard Page' },
       },
       {
         path: '/home/activity',

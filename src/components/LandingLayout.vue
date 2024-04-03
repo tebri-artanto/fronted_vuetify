@@ -23,7 +23,7 @@
               <a href="/register" class="text-white">Register</a>
             </Button>
             <ul class="flex list-none m-0 p-0 gap-2 items-center">
-              <li>
+              <!-- <li>
                 <button
                   type="button"
                   class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 border border-surface-200 dark:border-surface-600 rounded"
@@ -31,7 +31,7 @@
                 >
                   <i :class="`dark:text-white pi ${iconClass}`" />
                 </button>
-              </li>
+              </li> -->
             </ul>
 
           </div>
@@ -95,7 +95,7 @@ const items = ref([
         route: '/bidang/informatika'
       },
       {
-        label: 'Komunikadi & Statistik',
+        label: 'Komunikasi & Statistik',
         icon: 'pi pi-pencil',
         route: '/bidang/komunikasi'
       },
@@ -103,10 +103,10 @@ const items = ref([
     ]
   },
   {
-    label: 'Contact',
-    icon: 'pi pi-envelope',
-    badge: 3,
-    route: '/contact'
+    // label: 'Contact',
+    // icon: 'pi pi-envelope',
+    // badge: 3,
+    // route: '/contact'
   }
 ]);
 </script>
