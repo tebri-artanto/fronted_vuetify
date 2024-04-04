@@ -36,11 +36,6 @@ const routes = [
         meta: { title: 'Visi Misi' },
       },
       {
-        path: '/toast',
-        component: () => import('@/pages/ToasterTesting.vue'),
-        meta: { title: 'Toast' },
-      },
-      {
         path: '/strukturOrganisasi',
         component: () => import('@/pages/profil/StrukturOrganisasiPage.vue'),
         meta: { title: 'Struktur Organisasi' },
