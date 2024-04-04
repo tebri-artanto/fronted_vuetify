@@ -45,12 +45,11 @@
                           </label>
                           <div class="mt-1 flex w-full">
                             <InputText
-
                               v-model="nama"
                               id="nama"
                               v-bind="nama"
                               name="nama"
-                              placeholder="Enter nama"
+                              placeholder="Masukkan nama"
                               rows="8"
                               class="w-full"
                             />
@@ -66,12 +65,11 @@
                           </label>
                           <div class="mt-1 flex w-full">
                             <InputText
-
                               v-model="nip"
                               id="nip"
                               v-bind="nip"
                               name="nip"
-                              placeholder="Enter nip"
+                              placeholder="Masukkan nip"
                               rows="8"
                               class="w-full"
                             />
@@ -84,7 +82,7 @@
 
                         <div class="flex justify-end mt-4">
                           <Button
-                            label="Cancel"
+                            label="Batal"
                             @click="visible = false"
                             class="w-70 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           >
@@ -105,19 +103,33 @@
           </Dialog>
           <ConfirmDialog group="headless">
             <template #container="{ message, acceptCallback, rejectCallback }">
-                <div class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md">
-                    <div class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]">
-                        <i class="pi pi-question text-5xl"></i>
-                    </div>
-                    <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
-                    <p class="mb-0">{{ message.message }}</p>
-                    <div class="flex items-center gap-2 mt-4">
-                        <Button label="Hapus" severity="danger" @click="acceptCallback"></Button>
-                        <Button label="Cancel" outlined @click="rejectCallback"></Button>
-                    </div>
+              <div
+                class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md"
+              >
+                <div
+                  class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]"
+                >
+                  <i class="pi pi-question text-5xl"></i>
                 </div>
+                <span class="font-bold text-2xl block mb-2 mt-4">{{
+                  message.header
+                }}</span>
+                <p class="mb-0">{{ message.message }}</p>
+                <div class="flex items-center gap-2 mt-4">
+                  <Button
+                    label="Iya"
+                    severity="danger"
+                    @click="acceptCallback"
+                  ></Button>
+                  <Button
+                    label="Batal"
+                    outlined
+                    @click="rejectCallback"
+                  ></Button>
+                </div>
+              </div>
             </template>
-        </ConfirmDialog>
+          </ConfirmDialog>
         </div>
       </template>
 
@@ -168,34 +180,20 @@
             </template>
           </Column>
           <Column field="nama" header="Nama" sortable></Column>
-          <Column field="nip" header="Nama" sortable></Column>
-          <!-- <Column header="Edit File">
+          <Column field="nip" header="NIP" sortable></Column>
+          <Column header="Hapus Data">
             <template #body="slotProps">
               <a
-                :href="slotProps.data._id"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Edit
-              </a>
-            </template>
-          </Column> -->
-          <Column header="Delete File">
-            <template #body="slotProps">
-              <a
-
-              @click="requireConfirmation(slotProps.data._id)"
+                @click="requireConfirmation(slotProps.data._id)"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               >
-                Delete
+                Hapus
               </a>
             </template>
           </Column>
         </DataTable>
-
       </template>
     </Card>
   </div>
@@ -215,10 +213,9 @@ import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
 import axios from 'axios'
 import Avatar from 'primevue/avatar'
-import ConfirmDialog from 'primevue/confirmdialog';
+import ConfirmDialog from 'primevue/confirmdialog'
 
 const visible = ref(false)
-
 
 const karyawanData = ref()
 const filters = ref({
@@ -233,7 +230,6 @@ onMounted(() => {
   fetchKaryawanData()
 })
 
-
 function namaRequired (value) {
   return value ? true : 'nama tidak boleh kosong'
 }
@@ -246,7 +242,7 @@ function nipRequired (value) {
 const { defineInputBinds, errors, handleSubmit } = useForm({
   validationSchema: {
     nama: namaRequired,
-    nip: nipRequired,
+    nip: nipRequired
   }
 })
 
@@ -257,19 +253,25 @@ const nip = defineInputBinds('nip')
 
 const fetchKaryawanData = async () => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/karyawan/getall`)
+    const response = await axios.get(
+      `${import.meta.env.VITE_APP_API_URL}/karyawan/getall`
+    )
     karyawanData.value = response.data.data
-    karyawanData.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    karyawanData.value.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    )
     loading.value = false
   } catch (error) {
     console.error(error)
   }
 }
 
-const tambahKaryawan = handleSubmit(async (values) => {
+const tambahKaryawan = handleSubmit(async values => {
   try {
-
-    const response = await axios.post( `${import.meta.env.VITE_APP_API_URL}/karyawan/add`, values)
+    const response = await axios.post(
+      `${import.meta.env.VITE_APP_API_URL}/karyawan/add`,
+      values
+    )
 
     // Handle the response
     toast.add({
@@ -282,51 +284,56 @@ const tambahKaryawan = handleSubmit(async (values) => {
     visible.value = false
     window.location.reload()
     fetchKaryawanData()
-
   } catch (error) {
     toast.add({
       severity: 'error',
       summary: 'Error',
       detail: 'Invalid nama or nip'
     })
-    // Handle the error
     console.error(error)
     event.preventDefault()
   }
 })
 
-import { useConfirm } from "primevue/useconfirm";
+import { useConfirm } from 'primevue/useconfirm'
 
-const confirm = useConfirm();
+const confirm = useConfirm()
 
-const requireConfirmation = (id) => {
-    confirm.require({
-        group: 'headless',
-        header: 'Anda yakin menghapus Data ini?',
-        message: 'Silahkan konfirmasi untuk menghapus.',
-        accept: () => {
-          deleteData(id);
-            toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Data berhasil dihapus', life: 3000 });
-        },
-        reject: () => {
-            toast.add({ severity: 'error', summary: 'Rejected', detail: 'Tidak jadi hapus Data', life: 3000 });
-        }
-    });
-};
+const requireConfirmation = id => {
+  confirm.require({
+    group: 'headless',
+    header: 'Anda yakin menghapus Data ini?',
+    message: 'Silahkan konfirmasi untuk menghapus.',
+    accept: () => {
+      HapusData(id)
+      toast.add({
+        severity: 'info',
+        summary: 'Confirmed',
+        detail: 'Data berhasil dihapus',
+        life: 3000
+      })
+    },
+    reject: () => {
+      toast.add({
+        severity: 'error',
+        summary: 'Rejected',
+        detail: 'Tidak jadi hapus Data',
+        life: 3000
+      })
+    }
+  })
+}
 
-
-const deleteData = async (id) => {
+const HapusData = async id => {
   try {
-    const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/Karyawan/delete/${id}`);
-    // Handle the response
-    console.log(response.data);
-    console.log('Data berhasil dihapus');
-    window.location.reload();
-    // Perform any additional actions after deleting the data
+    const response = await axios.delete(
+      `${import.meta.env.VITE_APP_API_URL}/Karyawan/delete/${id}`
+    )
+    console.log(response.data)
+    console.log('Data berhasil dihapus')
+    window.location.reload()
   } catch (error) {
-    // Handle the error
-    console.error(error);
+    console.error(error)
   }
-};
-
+}
 </script>

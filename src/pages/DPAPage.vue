@@ -40,7 +40,10 @@
                     <div>
                       <form class="space-y-2" @submit.prevent="tambahDpa">
                         <div>
-                          <label for="kategori" class="block text-sm font-medium">
+                          <label
+                            for="kategori"
+                            class="block text-sm font-medium"
+                          >
                             Katagori
                           </label>
                           <div class="mt-1 flex w-full">
@@ -129,19 +132,33 @@
           </Dialog>
           <ConfirmDialog group="headless">
             <template #container="{ message, acceptCallback, rejectCallback }">
-                <div class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md">
-                    <div class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]">
-                        <i class="pi pi-question text-5xl"></i>
-                    </div>
-                    <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
-                    <p class="mb-0">{{ message.message }}</p>
-                    <div class="flex items-center gap-2 mt-4">
-                        <Button label="Hapus" severity="danger" @click="acceptCallback"></Button>
-                        <Button label="Cancel" outlined @click="rejectCallback"></Button>
-                    </div>
+              <div
+                class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md"
+              >
+                <div
+                  class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]"
+                >
+                  <i class="pi pi-question text-5xl"></i>
                 </div>
+                <span class="font-bold text-2xl block mb-2 mt-4">{{
+                  message.header
+                }}</span>
+                <p class="mb-0">{{ message.message }}</p>
+                <div class="flex items-center gap-2 mt-4">
+                  <Button
+                    label="Hapus"
+                    severity="danger"
+                    @click="acceptCallback"
+                  ></Button>
+                  <Button
+                    label="Cancel"
+                    outlined
+                    @click="rejectCallback"
+                  ></Button>
+                </div>
+              </div>
             </template>
-        </ConfirmDialog>
+          </ConfirmDialog>
         </div>
       </template>
 
@@ -206,33 +223,19 @@
               </a>
             </template>
           </Column>
-          <!-- <Column header="Edit File">
+          <Column header="Hapus File">
             <template #body="slotProps">
               <a
-                :href="slotProps.data._id"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Edit
-              </a>
-            </template>
-          </Column> -->
-          <Column header="Delete File">
-            <template #body="slotProps">
-              <a
-
-              @click="requireConfirmation(slotProps.data._id)"
+                @click="requireConfirmation(slotProps.data._id)"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               >
-                Delete
+                Hapus
               </a>
             </template>
           </Column>
         </DataTable>
-
       </template>
     </Card>
   </div>
@@ -250,15 +253,14 @@ import { useForm } from 'vee-validate'
 import Card from 'primevue/card'
 import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
-import router from '../router/index'
 import axios from 'axios'
 import Textarea from 'primevue/textarea'
 import Avatar from 'primevue/avatar'
-import ConfirmDialog from 'primevue/confirmdialog';
+import ConfirmDialog from 'primevue/confirmdialog'
+import { useConfirm } from 'primevue/useconfirm'
 
+const confirm = useConfirm()
 const visible = ref(false)
-
-
 const dpaData = ref()
 const filters = ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -267,12 +269,11 @@ const filters = ref({
   deskripsi: { value: null, matchMode: FilterMatchMode.STARTS_WITH }
 })
 
-const loading = ref(true) // optional
+const loading = ref(true)
 
 onMounted(() => {
   fetchDpaData()
 })
-
 
 function deskripsiRequired (value) {
   return value ? true : 'Deskripsi tidak boleh kosong'
@@ -285,7 +286,6 @@ function kategoriRequired (value) {
 function fileRequired (value) {
   return value ? true : 'File tidak boleh kosong'
 }
-// Create the form
 const { defineInputBinds, errors, validate } = useForm({
   validationSchema: {
     deskripsi: deskripsiRequired,
@@ -299,14 +299,15 @@ const file = ref(null)
 const handleFileUpload = event => {
   file.value = event.target.files[0]
 }
-// Define fields
 const deskripsi = defineInputBinds('deskripsi')
 const kategori = defineInputBinds('kategori')
 const fileInput = defineInputBinds('fileInput')
 
 const fetchDpaData = async () => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/dpa/getall`)
+    const response = await axios.get(
+      `${import.meta.env.VITE_APP_API_URL}/dpa/getall`
+    )
     dpaData.value = response.data.data
     dpaData.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     loading.value = false
@@ -327,7 +328,7 @@ const tambahDpa = async () => {
       toast.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Please fill in all required fields'
+        detail: 'Isian tidak boleh kosong'
       })
       return
     }
@@ -341,7 +342,6 @@ const tambahDpa = async () => {
       }
     )
 
-    // Handle the response
     toast.add({
       severity: 'success',
       summary: 'Success',
@@ -352,54 +352,52 @@ const tambahDpa = async () => {
     visible.value = false
     window.location.reload()
     fetchDpaData()
-
-
-    // Redirect to another page
   } catch (error) {
     toast.add({
       severity: 'error',
       summary: 'Error',
-      detail: 'Invalid deskripsi or kategori'
+      detail: 'Data gagal ditambahkan'
     })
-    // Handle the error
     console.error(error)
     event.preventDefault()
   }
 }
 
-import { useConfirm } from "primevue/useconfirm";
+const requireConfirmation = id => {
+  confirm.require({
+    group: 'headless',
+    header: 'Anda yakin menghapus Data ini?',
+    message: 'Silahkan konfirmasi untuk menghapus.',
+    accept: () => {
+      deleteData(id)
+      toast.add({
+        severity: 'info',
+        summary: 'Confirmed',
+        detail: 'Data berhasil dihapus',
+        life: 3000
+      })
+    },
+    reject: () => {
+      toast.add({
+        severity: 'error',
+        summary: 'Rejected',
+        detail: 'Tidak jadi hapus Data',
+        life: 3000
+      })
+    }
+  })
+}
 
-const confirm = useConfirm();
-
-const requireConfirmation = (id) => {
-    confirm.require({
-        group: 'headless',
-        header: 'Anda yakin menghapus Data ini?',
-        message: 'Silahkan konfirmasi untuk menghapus.',
-        accept: () => {
-          deleteData(id);
-            toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Data berhasil dihapus', life: 3000 });
-        },
-        reject: () => {
-            toast.add({ severity: 'error', summary: 'Rejected', detail: 'Tidak jadi hapus Data', life: 3000 });
-        }
-    });
-};
-
-
-const deleteData = async (id) => {
+const deleteData = async id => {
   try {
-    // const response = await axios.delete(`http://localhost:8000/dpa/${id}`);
-    const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/dpa/${id}`);
-    // Handle the response
-    console.log(response.data);
-    console.log('Data berhasil dihapus');
-    window.location.reload();
-    // Perform any additional actions after deleting the data
+    const response = await axios.delete(
+      `${import.meta.env.VITE_APP_API_URL}/dpa/${id}`
+    )
+    console.log(response.data)
+    console.log('Data berhasil dihapus')
+    window.location.reload()
   } catch (error) {
-    // Handle the error
-    console.error(error);
+    console.error(error)
   }
-};
-
+}
 </script>

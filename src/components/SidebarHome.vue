@@ -1,8 +1,36 @@
 <template>
   <div class="card">
     <Toast />
+    <ConfirmDialog group="headless">
+      <template #container="{ message, acceptCallback, rejectCallback }">
+        <div
+          class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md"
+        >
+          <div
+            class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]"
+          >
+            <i class="pi pi-question text-5xl"></i>
+          </div>
+          <span class="font-bold text-2xl block mb-2 mt-4">{{
+            message.header
+          }}</span>
+          <p class="mb-0">{{ message.message }}</p>
+          <div class="flex items-center gap-2 mt-4">
+            <Button
+              label="Keluar"
+              severity="danger"
+              @click="acceptCallback"
+            ></Button>
+            <Button
+              label=""
+              outlined
+              @click="rejectCallback"
+            ></Button>
+          </div>
+        </div>
+      </template>
+    </ConfirmDialog>
     <div class="card flex">
-      
       <Sidebar v-model:visible="visible" class="w-10">
         <template #container="{ closeCallback }">
           <div class="flex flex-col h-full w-auto">
@@ -128,7 +156,6 @@
               </ul>
             </div>
           </div>
-
         </template>
       </Sidebar>
       <Button icon="pi pi-bars" @click="visible = true" />

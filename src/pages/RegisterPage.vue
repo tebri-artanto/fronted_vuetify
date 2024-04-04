@@ -3,10 +3,14 @@
     <Card>
       <template #title>
         <h2 class="mt-6 text-center text-3xl font-extrabold">
-          Register a new Account
+          Daftartkan Akun Baru
         </h2>
       </template>
       <template #content>
+        <div class="card flex justify-center">
+          <Toast />
+
+      </div>
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div>
             <form class="space-y-6" @submit="onSubmit">
@@ -20,7 +24,7 @@
                     id="name"
                     v-bind="name"
                     name="name"
-                    placeholder="Enter Full Name"
+                    placeholder="Masukkan Nama Lengkap"
                     class="appearance-none block w-full px-3 py-2 border sm:text-sm"
                   />
                 </div>
@@ -31,7 +35,7 @@
 
               <div>
                 <label for="email" class="block text-sm font-medium">
-                  Email address
+                  Alamat Email
                 </label>
                 <div class="mt-1">
                   <InputText
@@ -40,7 +44,7 @@
                     v-bind="email"
                     name="email"
                     type="email"
-                    placeholder="Enter Email"
+                    placeholder="Masukkan Alamat Email"
                     class="appearance-none block w-full px-3 py-2 border sm:text-sm"
                   />
                 </div>
@@ -59,7 +63,7 @@
                     id="username"
                     v-bind="username"
                     name="username"
-                    placeholder="Enter username"
+                    placeholder="Masukkan Username"
                     class="appearance-none block w-full px-3 py-2 border sm:text-sm"
                   />
                 </div>
@@ -81,7 +85,7 @@
                     id="password"
                     v-bind="password"
                     name="password"
-                    placeholder="Enter Password"
+                    placeholder="Masukkan Password"
                     class="appearance-none block w-full px-3 py-2 sm:text-sm"
                   />
                 </div>
@@ -96,13 +100,13 @@
                   type="submit"
                   class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Sign in
+                  Daftar
                 </Button>
               </div>
 
               <div>
                 <p class="mt-2 text-center text-sm">
-                  Already have an account?
+                  Sudah punya akun?
                   <router-link
                     to="/login"
                     class="font-medium text-indigo-600 hover:text-indigo-500"
@@ -121,51 +125,37 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-// import { useAuth } from '../store/auth';
 import { useForm } from 'vee-validate'
 import router from '../router/index'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
-import Password from 'primevue/password'
 import axios from 'axios';
-
-// import FooterComponent from '../components/FooterComponent.vue';
-
-// const auth = useAuth();
-// const authData = computed(() => auth.getAuthData);
-
-// if (authData.value) {
-//   router.push({ name: 'Expense' });
-// }
-
-// Validation, or use `yup` or `zod`
+import { useToast } from "primevue/usetoast";
+import Toast from "primevue/toast";
 
 function nameRequired (value) {
-  return value ? true : 'Name field is required'
+  return value ? true : 'Nama tidak boleh kosong'
 }
 function required (value) {
-  return value ? true : 'Email field is required'
+  return value ? true : 'Email tidak boleh kosong'
 }
 
 function usernameRequired (value) {
-  return value ? true : 'Username field is required'
+  return value ? true : 'Username tidak boleh kosong'
 }
-
 
 
 function passwordRequired (value) {
   if (!value) {
-    return 'Password is a required field'
+    return 'Password tidak boleh kosong'
   }
   if (value.length < 8) {
-    return 'Password is too short'
+    return 'Password terlalu pendek'
   }
   return true
 }
 
-// Create the form
 const { defineInputBinds, handleSubmit, errors } = useForm({
   validationSchema: {
     name: nameRequired,
@@ -175,31 +165,32 @@ const { defineInputBinds, handleSubmit, errors } = useForm({
   }
 })
 
-// Define fields
 const name = defineInputBinds('name')
 const username = defineInputBinds('username')
 const email = defineInputBinds('email')
 const password = defineInputBinds('password')
-// const api = process.env.VUE_APP_API_URL
+
+const toast = useToast();
+
 const onSubmit = handleSubmit(async (values) => {
   try {
-    // Submit to API using Axios
-    const response = await axios.post( `${import.meta.env.VITE_APP_API_URL}/register`, values)
-    // Handle the response
-    console.log(response.data)
-    // Redirect to another page
+    const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/register`, values);
+    console.log(response.data);
     router.push('/login');
+    toast.add({ severity: 'success', summary: 'Success', detail: 'Akun berhasil didaftarkan' });
+
   } catch (error) {
-    // Handle the error
-    console.error(error)
+    console.log("error")
+    if (error.response && error.response.status === 400) {
+      console.log("error 1")
+      console.error(error.response.data);
+      toast.add({ severity: 'error', summary: 'Error', detail: "Username sudah ada" });
+    } else {
+      console.log("error 2")
+      console.error(error);
+    }
   }
 })
-// Submit handler
-// const onSubmit = handleSubmit(async (values) => {
-// // Submit to API
-// await auth.loginAction(values);
-// router.push({ name: 'Expense' });
-// });
 </script>
 
 <script>

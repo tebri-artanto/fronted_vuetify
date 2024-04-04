@@ -1,8 +1,36 @@
 <template>
   <div>
+    <Toast />
+    <ConfirmDialog group="headless">
+      <template #container="{ message, acceptCallback, rejectCallback }">
+        <div
+          class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md"
+        >
+          <div
+            class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]"
+          >
+            <i class="pi pi-question text-5xl"></i>
+          </div>
+          <span class="font-bold text-2xl block mb-2 mt-4">{{
+            message.header
+          }}</span>
+          <p class="mb-0">{{ message.message }}</p>
+          <div class="flex items-center gap-2 mt-4">
+            <Button
+              label="Iya"
+              severity="danger"
+              @click="acceptCallback"
+            ></Button>
+            <Button
+              label="Batal"
+              outlined
+              @click="rejectCallback"
+            ></Button>
+          </div>
+        </div>
+      </template>
+    </ConfirmDialog>
     <div class="relative bg-blueGray-100">
-      <navbar-component></navbar-component>
-      <!-- Header -->
       <div class="relative bg-pink-600 md:pt-32 pb-32 pt-12">
         <div class="px-4 md:px-10 mx-auto w-full">
           <div class="relative bg-blueGray-100">
@@ -165,8 +193,6 @@
       </div>
       <div class="px-4 md:px-10 mx-auto w-full -m-24">
         <div class="flex flex-wrap">
-          <line-chart-component></line-chart-component>
-          <bar-chart-component></bar-chart-component>
         </div>
         <div class="flex flex-wrap mt-4">
           <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
@@ -546,57 +572,14 @@
           <div class="container mx-auto px-4">
             <hr class="mb-4 border-b-1 border-blueGray-200" />
             <div
-              class="flex flex-wrap items-center md:justify-between justify-center"
+              class="flex  justify-center"
             >
-              <div class="w-full md:w-4/12 px-4">
+              <div class="w-full px-4">
                 <div class="text-sm text-blueGray-500 font-semibold py-1">
-                  Copyright © {{ date }}
-                  <a
-                    href="https://www.creative-tim.com"
-                    class="text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1"
-                  >
-                    Creative Tim
-                  </a>
+                  Copyright © 2024
                 </div>
               </div>
-              <div class="w-full md:w-8/12 px-4">
-                <ul
-                  class="flex flex-wrap list-none md:justify-end justify-center"
-                >
-                  <li>
-                    <a
-                      href="https://www.creative-tim.com"
-                      class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
-                    >
-                      Creative Tim
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.creative-tim.com/presentation"
-                      class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
-                    >
-                      About Us
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="http://blog.creative-tim.com"
-                      class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
-                    >
-                      Blog
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://github.com/creativetimofficial/tailwind-starter-kit/blob/main/LICENSE.md"
-                      class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
-                    >
-                      MIT License
-                    </a>
-                  </li>
-                </ul>
-              </div>
+
             </div>
           </div>
         </footer>
@@ -627,6 +610,7 @@ export default {
 <script setup>
 import axios from 'axios'
 import { ref, onMounted, onUnmounted } from 'vue'
+import ConfirmDialog from 'primevue/confirmdialog'
 
 const loggedInUser = ref([])
 
@@ -640,13 +624,16 @@ onUnmounted(() => {
   clearInterval(timerID)
 })
 
+
+
 const fetchDataUser = async () => {
   try {
     const usersLogin = localStorage.getItem('userLogin')
 
     console.log(usersLogin)
     const response = await axios.get(
-      `${import.meta.env.VITE_APP_API_URL}/${usersLogin}`)
+      `${import.meta.env.VITE_APP_API_URL}/${usersLogin}`
+    )
     //  const response = await axios.get(`http://localhost:8000/${usersLogin}`)
     console.log(response.data)
     loggedInUser.value = response.data.data
@@ -658,7 +645,21 @@ const fetchDataUser = async () => {
 
 const time = ref('')
 const date = ref('')
-const week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+const week = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
+const month = [
+  'Januari',
+  'Februari',
+  'Maret',
+  'April',
+  'Mei',
+  'Juni',
+  'Juli',
+  'Agustus',
+  'September',
+  'Oktober',
+  'November',
+  'Desember'
+]
 let timerID
 
 const updateTime = () => {
@@ -670,13 +671,13 @@ const updateTime = () => {
     ':' +
     zeroPadding(cd.getSeconds(), 2)
   date.value =
-    zeroPadding(cd.getFullYear(), 4) +
-    '-' +
-    zeroPadding(cd.getMonth() + 1, 2) +
-    '-' +
+    week[cd.getDay()] +
+    ', ' +
     zeroPadding(cd.getDate(), 2) +
     ' ' +
-    week[cd.getDay()]
+    month[cd.getMonth()] +
+    ' ' +
+    zeroPadding(cd.getFullYear(), 4)
 }
 
 const zeroPadding = (num, digit) => {

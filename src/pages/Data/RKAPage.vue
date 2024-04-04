@@ -108,7 +108,7 @@
                         </div>
                         <div class="flex justify-end mt-4">
                           <Button
-                            label="Cancel"
+                            label="Batal"
                             @click="visible = false"
                             class="w-70 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           >
@@ -136,8 +136,8 @@
                     <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
                     <p class="mb-0">{{ message.message }}</p>
                     <div class="flex items-center gap-2 mt-4">
-                        <Button label="Hapus" severity="danger" @click="acceptCallback"></Button>
-                        <Button label="Cancel" outlined @click="rejectCallback"></Button>
+                        <Button label="Iya" severity="danger" @click="acceptCallback"></Button>
+                        <Button label="Batal" outlined @click="rejectCallback"></Button>
                     </div>
                 </div>
             </template>
@@ -206,19 +206,7 @@
               </a>
             </template>
           </Column>
-          <!-- <Column header="Edit File">
-            <template #body="slotProps">
-              <a
-                :href="slotProps.data._id"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Edit
-              </a>
-            </template>
-          </Column> -->
-          <Column header="Delete File">
+          <Column header="Hapus File">
             <template #body="slotProps">
               <a
 
@@ -227,7 +215,7 @@
                 rel="noopener noreferrer"
                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               >
-                Delete
+                Hapus
               </a>
             </template>
           </Column>
@@ -250,7 +238,6 @@ import { useForm } from 'vee-validate'
 import Card from 'primevue/card'
 import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
-// import router from '../router/index'
 import axios from 'axios'
 import Textarea from 'primevue/textarea'
 import Avatar from 'primevue/avatar'
@@ -267,7 +254,7 @@ const filters = ref({
   deskripsi: { value: null, matchMode: FilterMatchMode.STARTS_WITH }
 })
 
-const loading = ref(true) // optional
+const loading = ref(true)
 
 onMounted(() => {
   fetchRkaData()
@@ -285,7 +272,6 @@ function kategoriRequired (value) {
 function fileRequired (value) {
   return value ? true : 'File tidak boleh kosong'
 }
-// Create the form
 const { defineInputBinds, errors, validate } = useForm({
   validationSchema: {
     deskripsi: deskripsiRequired,
@@ -299,7 +285,6 @@ const file = ref(null)
 const handleFileUpload = event => {
   file.value = event.target.files[0]
 }
-// Define fields
 const deskripsi = defineInputBinds('deskripsi')
 const kategori = defineInputBinds('kategori')
 const fileInput = defineInputBinds('fileInput')
@@ -327,7 +312,7 @@ const tambahRka = async () => {
       toast.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Please fill in all required fields'
+        detail: 'Isian tidak boleh kosong'
       })
       return
     }
@@ -341,7 +326,6 @@ const tambahRka = async () => {
       }
     )
 
-    // Handle the response
     toast.add({
       severity: 'success',
       summary: 'Success',
@@ -354,14 +338,12 @@ const tambahRka = async () => {
     fetchRkaData()
 
 
-    // Redirect to another page
   } catch (error) {
     toast.add({
       severity: 'error',
       summary: 'Error',
-      detail: 'Invalid deskripsi or kategori'
+      detail: 'Data gagal ditambahkan'
     })
-    // Handle the error
     console.error(error)
     event.preventDefault()
   }
@@ -389,15 +371,11 @@ const requireConfirmation = (id) => {
 
 const deleteData = async (id) => {
   try {
-    // const response = await axios.delete(`http://localhost:8000/rka/${id}`);
     const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/rka/${id}`);
-    // Handle the response
     console.log(response.data);
     console.log('Data berhasil dihapus');
     window.location.reload();
-    // Perform any additional actions after deleting the data
   } catch (error) {
-    // Handle the error
     console.error(error);
   }
 };

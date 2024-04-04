@@ -4,7 +4,7 @@
     <Card>
       <template #title>
         <h2 class="mt-6 text-center text-3xl font-extrabold">
-          Sign in to your account
+          Masuk ke akun Anda
         </h2>
       </template>
       <template #content>
@@ -26,7 +26,7 @@
                     id="username"
                     v-bind="username"
                     name="username"
-                    placeholder="Enter username"
+                    placeholder="Masukkan Username"
                     class="appearance-none block w-full px-3 py-2 border sm:text-sm"
                   />
                 </div>
@@ -52,7 +52,7 @@
                     id="password"
                     v-bind="password"
                     name="password"
-                    placeholder="Enter Password"
+                    placeholder="Masukkan Password"
                     class="appearance-none block w-full px-3 py-2 sm:text-sm"
                   />
                 </div>
@@ -67,13 +67,13 @@
                   type="submit"
                   class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Sign in
+                  Masuk
                 </Button>
               </div>
 
               <div>
                 <p class="mt-2 text-center text-sm ">
-                  Don't have an account?
+                  Belum punya akun?
                   <router-link
                     to="/register"
                     class="font-medium text-indigo-600 hover:text-indigo-500"
@@ -104,15 +104,15 @@ import Toast from "primevue/toast";
 import axios from "axios";
 
 function required(value) {
-  return value ? true : "Username field is required";
+  return value ? true : "Username tidak boleh kosong";
 }
 
 function passwordRequired(value) {
   if (!value) {
-    return "Password is a required field";
+    return "Password tidak boleh kosong";
   }
   if (value.length < 8) {
-    return "Password is too short";
+    return "Password terlalu pendek";
   }
   return true;
 }
@@ -125,7 +125,6 @@ const { defineInputBinds, handleSubmit, errors } = useForm({
   },
 });
 const toast = useToast();
-// Define fields
 const username = defineInputBinds("username");
 const password = defineInputBinds("password");
 const API = import.meta.env.VITE_APP_API_URL;
@@ -133,7 +132,6 @@ console.log(API);
 const onSubmit = handleSubmit(async (values) => {
 
   try {
-    // Submit to API using Axios
     const response = await axios.post( `${import.meta.env.VITE_APP_API_URL}/login`, values)
     document.cookie = `token=${response.data.token}`;
     document.cookie = `userLogin=${response.data.userlogin}`;
@@ -142,12 +140,12 @@ const onSubmit = handleSubmit(async (values) => {
     localStorage.setItem('userLogin', response.data.data.user._id);
     console.log(response.data.data.token)
     console.log(response.data.data.user._id)
-    toast.add({ severity: "success", summary: "Success", detail: "Login successful" });
+    toast.add({ severity: "success", summary: "Success", detail: "Berhasil Masuk" });
     console.log(response.data)
     // Redirect to another page
     router.push('/home');
   } catch (error) {
-    toast.add({ severity: "error", summary: "Error", detail: "Invalid username or password" });
+    toast.add({ severity: "error", summary: "Error", detail: "Username atau Password salah" });
     // Handle the error
     console.error(error)
   }

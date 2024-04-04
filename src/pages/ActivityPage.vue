@@ -1,4 +1,3 @@
-
 <template>
   <ThemeSwitcher />
   <div class="mx-10 my-10">
@@ -219,7 +218,7 @@
               />
             </template>
           </Column>
-          <Column header="Delete File">
+          <Column header="Hapus File">
             <template #body="slotProps">
               <a
                 @click="requireConfirmation(slotProps.data._id)"
@@ -227,7 +226,7 @@
                 rel="noopener noreferrer"
                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               >
-                Delete
+                Hapus
               </a>
             </template>
           </Column>
@@ -274,13 +273,12 @@ onMounted(() => {
 })
 
 function activityRequired (value) {
-  return value ? true : 'activity tidak boleh kosong'
+  return value ? true : 'Aktivitas tidak boleh kosong'
 }
 
 function fileRequired (value) {
   return value ? true : ''
 }
-// Create the form
 const { defineInputBinds, errors, validate } = useForm({
   validationSchema: {
     activity: activityRequired,
@@ -369,7 +367,7 @@ const tambahAktivitas = async () => {
       toast.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Please fill in all required fields'
+        detail: 'Isian tidak boleh kosong'
       })
       return
     }
@@ -383,7 +381,6 @@ const tambahAktivitas = async () => {
       }
     )
 
-    // Handle the response
     toast.add({
       severity: 'success',
       summary: 'Success',
@@ -394,15 +391,12 @@ const tambahAktivitas = async () => {
     visible.value = false
     window.location.reload()
     fetchData()
-
-    // Redirect to another page
   } catch (error) {
     toast.add({
       severity: 'error',
       summary: 'Error',
-      detail: error
+      detail: 'Data gagal ditambahkan'
     })
-    // Handle the error
     console.error(error)
     event.preventDefault()
   }
@@ -442,14 +436,10 @@ const deleteData = async id => {
     const response = await axios.delete(
       `${import.meta.env.VITE_APP_API_URL}/activities/${id}`
     )
-    // const response = await axios.delete(`http://localhost:8000/activities/${id}`);
-    // Handle the response
     console.log(response.data)
     console.log('Data berhasil dihapus')
     window.location.reload()
-    // Perform any additional actions after deleting the data
   } catch (error) {
-    // Handle the error
     console.error(error)
   }
 }

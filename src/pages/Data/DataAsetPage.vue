@@ -31,7 +31,10 @@
                     <div>
                       <form class="space-y-2" @submit.prevent="tambahDataAset">
                         <div>
-                          <label for="namaAset" class="block text-sm font-medium">
+                          <label
+                            for="namaAset"
+                            class="block text-sm font-medium"
+                          >
                             Nama Aset
                           </label>
                           <div class="mt-1 flex w-full">
@@ -51,7 +54,10 @@
                           </p>
                         </div>
                         <div>
-                          <label for="kategori" class="block text-sm font-medium">
+                          <label
+                            for="kategori"
+                            class="block text-sm font-medium"
+                          >
                             Katagori
                           </label>
                           <div class="mt-1 flex w-full">
@@ -60,7 +66,7 @@
                               id="kategori"
                               v-bind="kategori"
                               name="kategori"
-                              placeholder="Enter kategori"
+                              placeholder="Masukkan kategori"
                               rows="8"
                               class="w-full"
                             />
@@ -119,7 +125,7 @@
                         </div>
                         <div class="flex justify-end mt-4">
                           <Button
-                            label="Cancel"
+                            label="Batal"
                             @click="visible = false"
                             class="w-70 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           >
@@ -140,19 +146,33 @@
           </Dialog>
           <ConfirmDialog group="headless">
             <template #container="{ message, acceptCallback, rejectCallback }">
-                <div class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md">
-                    <div class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]">
-                        <i class="pi pi-question text-5xl"></i>
-                    </div>
-                    <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
-                    <p class="mb-0">{{ message.message }}</p>
-                    <div class="flex items-center gap-2 mt-4">
-                        <Button label="Hapus" severity="danger" @click="acceptCallback"></Button>
-                        <Button label="Cancel" outlined @click="rejectCallback"></Button>
-                    </div>
+              <div
+                class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md"
+              >
+                <div
+                  class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]"
+                >
+                  <i class="pi pi-question text-5xl"></i>
                 </div>
+                <span class="font-bold text-2xl block mb-2 mt-4">{{
+                  message.header
+                }}</span>
+                <p class="mb-0">{{ message.message }}</p>
+                <div class="flex items-center gap-2 mt-4">
+                  <Button
+                    label="Iya"
+                    severity="danger"
+                    @click="acceptCallback"
+                  ></Button>
+                  <Button
+                    label="Batal"
+                    outlined
+                    @click="rejectCallback"
+                  ></Button>
+                </div>
+              </div>
             </template>
-        </ConfirmDialog>
+          </ConfirmDialog>
         </div>
       </template>
 
@@ -217,21 +237,19 @@
               </a>
             </template>
           </Column>
-          <Column header="Delete File">
+          <Column header="Hapus File">
             <template #body="slotProps">
               <a
-
-              @click="requireConfirmation(slotProps.data._id)"
+                @click="requireConfirmation(slotProps.data._id)"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               >
-                Delete
+                Hapus
               </a>
             </template>
           </Column>
         </DataTable>
-
       </template>
     </Card>
   </div>
@@ -251,10 +269,9 @@ import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
 import axios from 'axios'
 import Textarea from 'primevue/textarea'
-import ConfirmDialog from 'primevue/confirmdialog';
+import ConfirmDialog from 'primevue/confirmdialog'
 
 const visible = ref(false)
-
 
 const dpaData = ref()
 const filters = ref({
@@ -269,7 +286,6 @@ const loading = ref(true) // optional
 onMounted(() => {
   fetchData()
 })
-
 
 function deskripsiRequired (value) {
   return value ? true : 'Deskripsi tidak boleh kosong'
@@ -304,7 +320,9 @@ const fileInput = defineInputBinds('fileInput')
 
 const fetchData = async () => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/dataaset/getall`)
+    const response = await axios.get(
+      `${import.meta.env.VITE_APP_API_URL}/dataaset/getall`
+    )
     dpaData.value = response.data.data
     dpaData.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     loading.value = false
@@ -340,7 +358,6 @@ const tambahDataAset = async () => {
       }
     )
 
-    // Handle the response
     toast.add({
       severity: 'success',
       summary: 'Success',
@@ -351,53 +368,56 @@ const tambahDataAset = async () => {
     visible.value = false
     window.location.reload()
     fetchData()
-
-
-    // Redirect to another page
   } catch (error) {
     toast.add({
       severity: 'error',
       summary: 'Error',
       detail: 'Invalid deskripsi or namaAset'
     })
-    // Handle the error
     console.error(error)
     event.preventDefault()
   }
 }
 
-import { useConfirm } from "primevue/useconfirm";
+import { useConfirm } from 'primevue/useconfirm'
 
-const confirm = useConfirm();
+const confirm = useConfirm()
 
-const requireConfirmation = (id) => {
-    confirm.require({
-        group: 'headless',
-        header: 'Anda yakin menghapus Data ini?',
-        message: 'Silahkan konfirmasi untuk menghapus.',
-        accept: () => {
-          deleteData(id);
-            toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Data berhasil dihapus', life: 3000 });
-        },
-        reject: () => {
-            toast.add({ severity: 'error', summary: 'Rejected', detail: 'Tidak jadi hapus Data', life: 3000 });
-        }
-    });
-};
+const requireConfirmation = id => {
+  confirm.require({
+    group: 'headless',
+    header: 'Anda yakin menghapus Data ini?',
+    message: 'Silahkan konfirmasi untuk menghapus.',
+    accept: () => {
+      HapusData(id)
+      toast.add({
+        severity: 'info',
+        summary: 'Confirmed',
+        detail: 'Data berhasil dihapus',
+        life: 3000
+      })
+    },
+    reject: () => {
+      toast.add({
+        severity: 'error',
+        summary: 'Rejected',
+        detail: 'Tidak jadi hapus Data',
+        life: 3000
+      })
+    }
+  })
+}
 
-
-const deleteData = async (id) => {
+const HapusData = async id => {
   try {
-    const response = await axios.delete(`http://localhost:8000/dataaset/delete/${id}`);
-    // Handle the response
-    console.log(response.data);
-    console.log('Data berhasil dihapus');
-    window.location.reload();
-    // Perform any additional actions after deleting the data
+    const response = await axios.delete(
+      `${import.meta.env.VITE_APP_API_URL}/dataaset/delete/${id}`
+    )
+    console.log(response.data)
+    console.log('Data berhasil dihapus')
+    window.location.reload()
   } catch (error) {
-    // Handle the error
-    console.error(error);
+    console.error(error)
   }
-};
-
+}
 </script>
