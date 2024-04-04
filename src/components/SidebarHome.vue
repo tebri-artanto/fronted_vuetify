@@ -174,22 +174,18 @@ import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
 import { useConfirm } from 'primevue/useconfirm'
 
-const logout = () => {
-  // Remove the authentication cookie
-  document.cookie = 'userLogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-
-  // Remove the token from local storage
-  localStorage.removeItem('userLogin')
-  localStorage.removeItem('token')
-
-  // Redirect the user to the login page
-  router.push('/login')
-}
-
 const visible = ref(false)
 const toast = useToast()
 const confirm = useConfirm()
+
+const logout = () => {
+  document.cookie = 'userLogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+
+  localStorage.removeItem('userLogin')
+  localStorage.removeItem('token')
+  router.push('/login')
+}
 
 const requireConfirmation = () => {
   confirm.require({
