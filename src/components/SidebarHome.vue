@@ -53,6 +53,7 @@
                   outlined
                   class="h-8 w-8"
                 ></Button>
+
               </span>
             </div>
             <div class="overflow-y-auto mt-4">
@@ -158,9 +159,15 @@
           </div>
         </template>
       </Sidebar>
-      <Button icon="pi pi-bars" @click="visible = true" />
+      <div >
+        <Button icon="pi pi-bars" @click="visible = true" />
+      </div>
+
     </div>
-    <router-view></router-view>
+    <div class="">
+      <router-view></router-view>
+    </div>
+
 
   </div>
 </template>

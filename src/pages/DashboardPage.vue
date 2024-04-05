@@ -31,8 +31,8 @@
       </template>
     </ConfirmDialog>
     <div class="relative bg-blueGray-100">
-      <div class="relative bg-blue-500 md:pt-32 pb-32 pt-12">
-        <div class="px-4 md:px-10 mx-auto w-full">
+      <div class="relative bg-blue-500 md:pt-32 pb-20 pt-10   ">
+        <div class="px-4 md:px-10 mx-auto w-full pb-32">
           <div class="relative bg-blueGray-100">
             <div class="px-4 md:px-10 mx-auto w-full">
               <h1 class="text-3xl text-white font-semibold mb-4">
@@ -47,146 +47,25 @@
           <div>
             <!-- Card stats -->
             <div class="flex flex-wrap">
-              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <div
-                  class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg"
-                >
+              <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-for="menuItem in menuItems" :key="menuItem.id">
+                <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                   <div class="flex-auto p-4">
                     <div class="flex flex-wrap">
-                      <div
-                        class="relative w-full pr-4 max-w-full flex-grow flex-1"
-                      >
-                        <h5
-                          class="text-blueGray-400 uppercase font-bold text-xs"
-                        >
-                          Traffic
-                        </h5>
-                        <span class="font-semibold text-xl text-blueGray-700">
-                          350,897
-                        </span>
+                      <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                        <h6 class="text-blueGray-400 uppercase font-bold text-2xl">{{ menuItem.title }}</h6>
                       </div>
                       <div class="relative w-auto pl-4 flex-initial">
-                        <div
-                          class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500"
-                        >
-                          <i class="far fa-chart-bar"></i>
+                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full" :class="menuItem.iconColor">
+                          <i :class="menuItem.icon"></i>
                         </div>
                       </div>
                     </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-emerald-500 mr-2">
-                        <i class="fas fa-arrow-up"></i> 3.48%
-                      </span>
-                      <span class="whitespace-nowrap"> Since last month </span>
-                    </p>
+                    <button class="text-blue-500 font-semibold mt-2" @click="$router.push(menuItem.route)">{{ menuItem.buttonText }}</button>
                   </div>
                 </div>
               </div>
-              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <div
-                  class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg"
-                >
-                  <div class="flex-auto p-4">
-                    <div class="flex flex-wrap">
-                      <div
-                        class="relative w-full pr-4 max-w-full flex-grow flex-1"
-                      >
-                        <h5
-                          class="text-blueGray-400 uppercase font-bold text-xs"
-                        >
-                          New users
-                        </h5>
-                        <span class="font-semibold text-xl text-blueGray-700">
-                          2,356
-                        </span>
-                      </div>
-                      <div class="relative w-auto pl-4 flex-initial">
-                        <div
-                          class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-orange-500"
-                        >
-                          <i class="fas fa-chart-pie"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-red-500 mr-2">
-                        <i class="fas fa-arrow-down"></i> 3.48%
-                      </span>
-                      <span class="whitespace-nowrap"> Since last week </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <div
-                  class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg"
-                >
-                  <div class="flex-auto p-4">
-                    <div class="flex flex-wrap">
-                      <div
-                        class="relative w-full pr-4 max-w-full flex-grow flex-1"
-                      >
-                        <h5
-                          class="text-blueGray-400 uppercase font-bold text-xs"
-                        >
-                          Sales
-                        </h5>
-                        <span class="font-semibold text-xl text-blueGray-700">
-                          924
-                        </span>
-                      </div>
-                      <div class="relative w-auto pl-4 flex-initial">
-                        <div
-                          class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-pink-500"
-                        >
-                          <i class="fas fa-users"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-orange-500 mr-2">
-                        <i class="fas fa-arrow-down"></i> 1.10%
-                      </span>
-                      <span class="whitespace-nowrap"> Since yesterday </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <div
-                  class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg"
-                >
-                  <div class="flex-auto p-4">
-                    <div class="flex flex-wrap">
-                      <div
-                        class="relative w-full pr-4 max-w-full flex-grow flex-1"
-                      >
-                        <h5
-                          class="text-blueGray-400 uppercase font-bold text-xs"
-                        >
-                          Performance
-                        </h5>
-                        <span class="font-semibold text-xl text-blueGray-700">
-                          49,65%
-                        </span>
-                      </div>
-                      <div class="relative w-auto pl-4 flex-initial">
-                        <div
-                          class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-lightBlue-500"
-                        >
-                          <i class="fas fa-percent"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-emerald-500 mr-2">
-                        <i class="fas fa-arrow-up"></i> 12%
-                      </span>
-                      <span class="whitespace-nowrap"> Since last month </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
+
+
             </div>
           </div>
         </div>
@@ -194,26 +73,14 @@
       <div class="px-4 md:px-10 mx-auto w-full -m-24">
         <div class="flex flex-wrap">
         </div>
-        <div class="flex flex-wrap mt-4">
 
-          <div class="w-full xl:w-4/12 px-4">
-            <div
-              class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
-            >
-
-              <button @click="requireConfirmation" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-        <footer class="block py-4">
+        <footer class="block py-4 pt-5 mt-5">
           <div class="container mx-auto px-4">
             <hr class="mb-4 border-b-1 border-blueGray-200" />
             <div
               class="flex  justify-center"
             >
-              <div class="w-full px-4">
+              <div class="w-full px-4 pt-10">
                 <div class="text-sm text-blueGray-500 font-semibold py-1">
                   Copyright © 2024
                 </div>
@@ -226,25 +93,6 @@
     </div>
   </div>
 </template>
-<script>
-// import NavbarComponent from "../components/dashboardComp/Navbar.vue";
-// import LineChartComponent from "../components/dashboardComp/LineChart.vue";
-// import BarChartComponent from "../components/dashboardComp/BarChart.vue";
-export default {
-  name: 'dashboard-page',
-  components: {
-    // NavbarComponent,
-    // SidebarComponent,
-    // LineChartComponent,
-    // BarChartComponent
-  },
-  data () {
-    return {
-      date: new Date().getFullYear()
-    }
-  }
-}
-</script>
 
 <script setup>
 import axios from 'axios'
@@ -268,7 +116,72 @@ onUnmounted(() => {
   clearInterval(timerID)
 })
 
-
+const menuItems = [
+  {
+    id: 1,
+    title: 'Aktivitas',
+    icon: 'pi pi-folder',
+    iconColor: 'bg-blue-500',
+    route: '/home/activity',
+    buttonText: 'Lihat Data'
+  },
+  {
+    id: 2,
+    title: 'Data Karyawan',
+    icon: 'pi pi-folder',
+    iconColor: 'bg-blue-500',
+    route: '/home/dataKaryawan',
+    buttonText: 'Lihat Data'
+  },
+  {
+    id: 3,
+    title: 'DPA',
+    icon: 'pi pi-folder',
+    iconColor: 'bg-blue-500',
+    route: '/home/dpa',
+    buttonText: 'Lihat Data'
+  },
+  {
+    id: 4,
+    title: 'RKA',
+    icon: 'pi pi-folder',
+    iconColor: 'bg-blue-500',
+    route: '/home/rka',
+    buttonText: 'Lihat Data'
+  },
+  {
+    id: 5,
+    title: 'Data Kegiatan Sekretariat',
+    icon: 'pi pi-folder',
+    iconColor: 'bg-blue-500',
+    route: '/home/kegiatanSekretariat',
+    buttonText: 'Lihat Data'
+  },
+  {
+    id: 6,
+    title: 'Data Aset',
+    icon: 'pi pi-folder',
+    iconColor: 'bg-blue-500',
+    route: '/home/dataaset',
+    buttonText: 'Lihat Data'
+  },
+  {
+    id: 7,
+    title: 'Data Kegiatan Kepegawaian',
+    icon: 'pi pi-folder',
+    iconColor: 'bg-blue-500',
+    route: '/home/dkk',
+    buttonText: 'Lihat Data'
+  },
+  {
+    id: 8,
+    title: 'DPHCHT',
+    icon: 'pi pi-folder',
+    iconColor: 'bg-blue-500',
+    route: '/home/dbhcht',
+    buttonText: 'Lihat Data'
+  }
+]
 
 const fetchDataUser = async () => {
   try {
@@ -342,7 +255,6 @@ const logout = () => {
   localStorage.removeItem('token')
 
   router.push('/login')
-  // window.location.reload()
 }
 
 const requireConfirmation = () => {
