@@ -138,6 +138,7 @@ const onSubmit = handleSubmit(async (values) => {
     console.log(response.data.data)
     localStorage.setItem('token', response.data.data.token);
     localStorage.setItem('userLogin', response.data.data.user._id);
+    localStorage.setItem('username', response.data.data.user.username);
     console.log(response.data.data.token)
     console.log(response.data.data.user._id)
     toast.add({ severity: "success", summary: "Success", detail: "Berhasil Masuk" });

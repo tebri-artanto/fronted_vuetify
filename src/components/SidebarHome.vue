@@ -60,6 +60,16 @@
               <ul class="list-none px-4 m-0">
                 <li>
                   <ul class="list-none p-0 m-0 overflow-hidden">
+                    <li v-if="username === 'admin'">
+                      <a
+                        href="/home/allActivity"
+                        v-ripple
+                        class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
+                      >
+                        <i class="pi pi-chart-bar mr-2"></i>
+                        <span class="font-medium">Semua Aktivitas</span>
+                      </a>
+                    </li>
                     <li>
                       <a
                         href="/home/activity"
@@ -185,12 +195,15 @@ const visible = ref(false)
 const toast = useToast()
 const confirm = useConfirm()
 
+const username = localStorage.getItem('username')
+
 const logout = () => {
   document.cookie = 'userLogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
   document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
 
   localStorage.removeItem('userLogin')
   localStorage.removeItem('token')
+  localStorage.removeItem('username')
   router.push('/login')
 }
 

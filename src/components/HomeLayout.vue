@@ -51,8 +51,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import L from 'leaflet'
-import router from '@/router';
 
 const drawer = ref(false)
 

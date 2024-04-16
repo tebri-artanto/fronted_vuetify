@@ -81,9 +81,22 @@ const routes = [
         meta: { title: 'Dashboard Page' },
       },
       {
+        path: '/home/allActivity',
+        component: () => import('@/pages/AllActivityPage.vue'),
+        meta: { title: ' Semua Aktivitas' },
+        beforeEnter: (to, from, next) => {
+          const token = getCookie('token');
+          if (token) {
+            next();
+          } else {
+            next('/login');
+          }
+        }
+      },
+      {
         path: '/home/activity',
         component: () => import('@/pages/ActivityPage.vue'),
-        meta: { title: 'Activity' },
+        meta: { title: 'Aktivitas' },
         beforeEnter: (to, from, next) => {
           const token = getCookie('token');
           if (token) {
