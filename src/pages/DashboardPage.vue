@@ -3,35 +3,24 @@
     <Toast />
     <ConfirmDialog group="headless">
       <template #container="{ message, acceptCallback, rejectCallback }">
-        <div
-          class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md"
-        >
+        <div class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md">
           <div
-            class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]"
-          >
+            class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]">
             <i class="pi pi-question text-5xl"></i>
           </div>
           <span class="font-bold text-2xl block mb-2 mt-4">{{
-            message.header
-          }}</span>
+        message.header
+      }}</span>
           <p class="mb-0">{{ message.message }}</p>
           <div class="flex items-center gap-2 mt-4">
-            <Button
-              label="Iya"
-              severity="danger"
-              @click="acceptCallback"
-            ></Button>
-            <Button
-              label="Batal"
-              outlined
-              @click="rejectCallback"
-            ></Button>
+            <Button label="Iya" severity="danger" @click="acceptCallback"></Button>
+            <Button label="Batal" outlined @click="rejectCallback"></Button>
           </div>
         </div>
       </template>
     </ConfirmDialog>
     <div class="relative bg-blueGray-100">
-      <div class="relative bg-blue-500 md:pt-32 pb-20 pt-10   ">
+      <div class="relative bg-blue-500 md:pt-32 pb-20 pt-10">
         <div class="px-4 md:px-10 mx-auto w-full pb-32">
           <div class="relative bg-blueGray-100">
             <div class="px-4 md:px-10 mx-auto w-full">
@@ -46,46 +35,72 @@
           </div>
           <div>
             <!-- Card stats -->
+
             <div class="flex flex-wrap">
+              <!-- semua aktivitas -->
+              <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-if="username === 'admin'">
+                <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                  <div class="flex-auto p-4">
+                    <div class="flex flex-wrap">
+                      <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                        <h6 class="text-green-500 font-bold text-2xl">
+                          Semua Aktivitas
+                        </h6>
+                      </div>
+                      <div class="relative w-auto pl-4 flex-initial">
+                        <div
+                          class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-blue-800"
+                          @click="$router.push('/home/allActivity')">
+                          <i class="pi pi-folder" @click="$router.push('/home/allActivity')"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="text-black font-semibold mt-2" @click="$router.push('/home/allActivity')">
+                      Lihat Data
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- menu lain-->
               <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-for="menuItem in menuItems" :key="menuItem.id">
                 <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                   <div class="flex-auto p-4">
                     <div class="flex flex-wrap">
                       <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                        <h6 class="text-green-500 font-bold text-2xl">{{ menuItem.title }}</h6>
+                        <h6 class="text-green-500 font-bold text-2xl">
+                          {{ menuItem.title }}
+                        </h6>
                       </div>
                       <div class="relative w-auto pl-4 flex-initial">
-                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full" :class="menuItem.iconColor">
-                          <i :class="menuItem.icon"></i>
+                        <div
+                          class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full"
+                          :class="menuItem.iconColor"
+                          @click="$router.push(menuItem.route)">
+                          <i :class="menuItem.icon"  @click="$router.push(menuItem.route)"></i>
                         </div>
                       </div>
                     </div>
-                    <button class="text-black font-semibold mt-2" @click="$router.push(menuItem.route)">{{ menuItem.buttonText }}</button>
+                    <button class="text-black font-semibold mt-2" @click="$router.push(menuItem.route)">
+                      {{ menuItem.buttonText }}
+                    </button>
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>
       </div>
       <div class="px-4 md:px-10 mx-auto w-full -m-24">
-        <div class="flex flex-wrap">
-        </div>
-
+        <div class="flex flex-wrap"></div>
         <footer class="block py-4 pt-5 mt-5">
           <div class="container mx-auto px-4">
             <hr class="mb-4 border-b-1 border-blueGray-200" />
-            <div
-              class="flex  justify-center"
-            >
+            <div class="flex justify-center">
               <div class="w-full px-4 pt-10">
                 <div class="text-sm text-blueGray-500 font-semibold py-1">
                   Copyright © 2024
                 </div>
               </div>
-
             </div>
           </div>
         </footer>
@@ -105,6 +120,8 @@ import Toast from 'primevue/toast'
 import { useConfirm } from 'primevue/useconfirm'
 
 const loggedInUser = ref([])
+
+const username = localStorage.getItem('username')
 
 onMounted(() => {
   fetchDataUser()
