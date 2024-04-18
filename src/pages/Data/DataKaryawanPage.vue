@@ -229,6 +229,12 @@ const loading = ref(true) // optional
 onMounted(() => {
   fetchKaryawanData()
 })
+const token = localStorage.getItem('token')
+const api = axios.create({
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+})
 
 function namaRequired (value) {
   return value ? true : 'nama tidak boleh kosong'
@@ -253,7 +259,7 @@ const nip = defineInputBinds('nip')
 
 const fetchKaryawanData = async () => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_APP_API_URL}/karyawan/getall`
     )
     karyawanData.value = response.data.data
@@ -268,7 +274,7 @@ const fetchKaryawanData = async () => {
 
 const tambahKaryawan = handleSubmit(async values => {
   try {
-    const response = await axios.post(
+    const response = await api.post(
       `${import.meta.env.VITE_APP_API_URL}/karyawan/add`,
       values
     )
@@ -326,7 +332,7 @@ const requireConfirmation = id => {
 
 const HapusData = async id => {
   try {
-    const response = await axios.delete(
+    const response = await api.delete(
       `${import.meta.env.VITE_APP_API_URL}/Karyawan/delete/${id}`
     )
     console.log(response.data)

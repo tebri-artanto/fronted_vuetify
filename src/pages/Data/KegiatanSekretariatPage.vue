@@ -293,6 +293,12 @@ const loading = ref(true)
 onMounted(() => {
   fetchData()
 })
+const token = localStorage.getItem('token')
+const api = axios.create({
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+})
 
 function deskripsiRequired (value) {
   return value ? true : 'Deskripsi tidak boleh kosong'
@@ -349,7 +355,7 @@ const fileInput = defineInputBinds('fileInput')
 
 const fetchData = async () => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_APP_API_URL}/kegsek/getall`
     )
     kegSekData.value = response.data.data
@@ -379,7 +385,7 @@ const tambahKegSek = async () => {
       })
       return
     }
-    const response = await axios.post(
+    const response = await api.post(
       `${import.meta.env.VITE_APP_API_URL}/kegsek/upload`,
       formData,
       {
@@ -437,7 +443,7 @@ const requireConfirmation = id => {
 
 const deleteData = async id => {
   try {
-    const response = await axios.delete(
+    const response = await api.delete(
       `${import.meta.env.VITE_APP_API_URL}/kegsek/delete/${id}`
     )
     console.log(response.data)

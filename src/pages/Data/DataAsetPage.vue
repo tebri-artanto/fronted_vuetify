@@ -317,10 +317,15 @@ const kategori = defineInputBinds('kategori')
 const deskripsi = defineInputBinds('deskripsi')
 const namaAset = defineInputBinds('namaAset')
 const fileInput = defineInputBinds('fileInput')
-
+const token = localStorage.getItem('token')
+const api = axios.create({
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+})
 const fetchData = async () => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_APP_API_URL}/dataaset/getall`
     )
     dpaData.value = response.data.data
@@ -348,7 +353,7 @@ const tambahDataAset = async () => {
       })
       return
     }
-    const response = await axios.post(
+    const response = await api.post(
       `${import.meta.env.VITE_APP_API_URL}/dataaset/upload`,
       formData,
       {
@@ -410,7 +415,7 @@ const requireConfirmation = id => {
 
 const HapusData = async id => {
   try {
-    const response = await axios.delete(
+    const response = await api.delete(
       `${import.meta.env.VITE_APP_API_URL}/dataaset/delete/${id}`
     )
     console.log(response.data)

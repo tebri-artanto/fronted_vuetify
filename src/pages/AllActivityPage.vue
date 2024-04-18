@@ -211,6 +211,12 @@ const loading = ref(true)
 onMounted(() => {
   fetchRkaData()
 })
+const token = localStorage.getItem('token')
+const api = axios.create({
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+})
 
 const activityData = ref()
 const namaUser = ref()
@@ -220,7 +226,7 @@ const getDataAktivitas = async (id, name) => {
     console.log(id)
     namaUser.value = name
     console.log(namaUser)
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_APP_API_URL}/user/${id}/activities`
     )
     activityData.value = response.data
@@ -239,7 +245,7 @@ const getDataAktivitas = async (id, name) => {
 
 const fetchRkaData = async () => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_APP_API_URL}/users`
     )
     allUserData.value = response.data.data

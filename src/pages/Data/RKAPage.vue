@@ -259,7 +259,12 @@ const loading = ref(true)
 onMounted(() => {
   fetchRkaData()
 })
-
+const token = localStorage.getItem('token')
+const api = axios.create({
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+})
 
 function deskripsiRequired (value) {
   return value ? true : 'Deskripsi tidak boleh kosong'
@@ -291,7 +296,7 @@ const fileInput = defineInputBinds('fileInput')
 
 const fetchRkaData = async () => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/rka/getall`)
+    const response = await api.get(`${import.meta.env.VITE_APP_API_URL}/rka/getall`)
     rkaData.value = response.data.data
     rkaData.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     loading.value = false
@@ -316,7 +321,7 @@ const tambahRka = async () => {
       })
       return
     }
-    const response = await axios.post(
+    const response = await api.post(
       `${import.meta.env.VITE_APP_API_URL}/rka/upload`,
       formData,
       {
@@ -371,7 +376,7 @@ const requireConfirmation = (id) => {
 
 const deleteData = async (id) => {
   try {
-    const response = await axios.delete(`${import.meta.env.VITE_APP_API_URL}/rka/${id}`);
+    const response = await api.delete(`${import.meta.env.VITE_APP_API_URL}/rka/${id}`);
     console.log(response.data);
     console.log('Data berhasil dihapus');
     window.location.reload();

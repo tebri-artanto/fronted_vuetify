@@ -272,6 +272,13 @@ onMounted(() => {
   fetchData()
 })
 
+const token = localStorage.getItem('token')
+const api = axios.create({
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+})
+
 function activityRequired (value) {
   return value ? true : 'Aktivitas tidak boleh kosong'
 }
@@ -329,14 +336,10 @@ const activity = defineInputBinds('activity')
 const fileInput = defineInputBinds('fileInput')
 
 const fetchData = async () => {
-  console.log(localStorage.getItem('userLogin'))
-  console.log('test')
   try {
+
     const usersLogin = localStorage.getItem('userLogin')
-    console.log(usersLogin)
-    console.log(localStorage.getItem('userLogin'))
-    console.log('test')
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_APP_API_URL}/user/${usersLogin}/activities`
     )
     activityData.value = response.data
@@ -371,7 +374,7 @@ const tambahAktivitas = async () => {
       })
       return
     }
-    const response = await axios.post(
+    const response = await api.post(
       `${import.meta.env.VITE_APP_API_URL}/activities/upload`,
       formData,
       {
@@ -433,7 +436,7 @@ const requireConfirmation = id => {
 
 const deleteData = async id => {
   try {
-    const response = await axios.delete(
+    const response = await api.delete(
       `${import.meta.env.VITE_APP_API_URL}/activities/${id}`
     )
     console.log(response.data)
