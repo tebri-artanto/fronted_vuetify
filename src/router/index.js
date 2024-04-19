@@ -79,6 +79,14 @@ const routes = [
         path: '/home',
         component: () => import('@/pages/DashboardPage.vue'),
         meta: { title: 'Dashboard Page' },
+        beforeEnter: (to, from, next) => {
+          const token = getCookie('token');
+          if (token) {
+            next();
+          } else {
+            next('/login');
+          }
+        }
       },
       {
         path: '/home/allActivity',
