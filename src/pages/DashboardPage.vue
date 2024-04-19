@@ -200,13 +200,21 @@ const menuItems = [
   }
 ]
 
+const token = localStorage.getItem('token')
+const api = axios.create({
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+})
+
 const fetchDataUser = async () => {
   try {
     const usersLogin = localStorage.getItem('userLogin')
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_APP_API_URL}/${usersLogin}`
     )
     loggedInUser.value = response.data.data
+
   } catch (error) {
     console.error(error)
   }

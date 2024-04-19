@@ -48,7 +48,8 @@ onMounted(() => {
 
 const checkToken = () => {
   const token = localStorage.getItem('token');
-  if(token != null){
+  const user = localStorage.getItem('userLogin');
+  if(token !== null && user !== null){
     return 'true';
   }else{
     return 'false';
