@@ -79,7 +79,7 @@
             </div>
             <div class="w-full md:w-4/12 px-4 mr-auto ml-auto">
               <div
-                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-pink-600"
+                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-900"
               >
                 <img
                   alt="..."
@@ -96,11 +96,11 @@
                   >
                     <polygon
                       points="-30,95 583,95 583,65"
-                      class="text-pink-600 fill-current"
+                      class="text-gray-900 fill-current"
                     ></polygon>
                   </svg>
                   <h4 class="text-xl font-bold text-white">
-                
+
                   </h4>
                   <p class="text-md font-light mt-2 text-white">
 
