@@ -223,9 +223,7 @@ const namaUser = ref()
 
 const getDataAktivitas = async (id, name) => {
   try {
-    console.log(id)
     namaUser.value = name
-    console.log(namaUser)
     const response = await api.get(
       `${import.meta.env.VITE_APP_API_URL}/user/${id}/activities`
     )

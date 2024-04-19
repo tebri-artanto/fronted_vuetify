@@ -203,14 +203,10 @@ const menuItems = [
 const fetchDataUser = async () => {
   try {
     const usersLogin = localStorage.getItem('userLogin')
-
-    console.log(usersLogin)
     const response = await axios.get(
       `${import.meta.env.VITE_APP_API_URL}/${usersLogin}`
     )
-    console.log(response.data)
     loggedInUser.value = response.data.data
-    console.log(loggedInUser.value)
   } catch (error) {
     console.error(error)
   }

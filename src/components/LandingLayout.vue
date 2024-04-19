@@ -16,23 +16,16 @@
         </template>
         <template #end>
           <div class="flex items-center gap-2">
-            <Button label="Login" href="/login" raised>
+            <Button label="Login" href="/login" raised v-if="checkToken() === 'false'">
               <a href="/login" class="text-white">Login</a>
             </Button>
-            <Button label="Register" href="/register" severity="secondary" raised>
+            <Button label="Register" href="/register" severity="secondary" raised v-if="checkToken() === 'false'">
               <a href="/register" class="text-white">Register</a>
             </Button>
-            <ul class="flex list-none m-0 p-0 gap-2 items-center">
-              <!-- <li>
-                <button
-                  type="button"
-                  class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 border border-surface-200 dark:border-surface-600 rounded"
-                  @click="onThemeToggler"
-                >
-                  <i :class="`dark:text-white pi ${iconClass}`" />
-                </button>
-              </li> -->
-            </ul>
+            <Button label="Register" href="/home" severity="secondary" raised v-if="checkToken() === 'true'">
+              <a href="/home" class="text-white">Home Menu</a>
+            </Button>
+
 
           </div>
         </template>
@@ -44,12 +37,23 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import Menubar from 'primevue/menubar';
 import Button from 'primevue/button';
 import ScrollTop from 'primevue/scrolltop';
 
+onMounted(() => {
+  checkToken();
+});
 
+const checkToken = () => {
+  const token = localStorage.getItem('token');
+  if(token != null){
+    return 'true';
+  }else{
+    return 'false';
+  }
+};
 
 const items = ref([
   {
@@ -102,12 +106,6 @@ const items = ref([
 
     ]
   },
-  {
-    // label: 'Contact',
-    // icon: 'pi pi-envelope',
-    // badge: 3,
-    // route: '/contact'
-  }
 ]);
 </script>
 

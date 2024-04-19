@@ -180,13 +180,10 @@ const onSubmit = handleSubmit(async (values) => {
     toast.add({ severity: 'success', summary: 'Success', detail: 'Akun berhasil didaftarkan' });
 
   } catch (error) {
-    console.log("error")
     if (error.response && error.response.status === 400) {
-      console.log("error 1")
       console.error(error.response.data);
       toast.add({ severity: 'error', summary: 'Error', detail: "Username sudah ada" });
     } else {
-      console.log("error 2")
       console.error(error);
     }
   }

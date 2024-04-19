@@ -359,7 +359,6 @@ const tambahAktivitas = async () => {
   try {
     const formData = new FormData()
     const usersLogin = localStorage.getItem('userLogin')
-    console.log(usersLogin)
     formData.append('activity', activity.value.value)
     formData.append('date', formatDate(date.value))
     formData.append('file', file.value)

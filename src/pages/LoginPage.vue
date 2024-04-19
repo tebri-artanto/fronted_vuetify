@@ -127,22 +127,16 @@ const { defineInputBinds, handleSubmit, errors } = useForm({
 const toast = useToast();
 const username = defineInputBinds("username");
 const password = defineInputBinds("password");
-const API = import.meta.env.VITE_APP_API_URL;
-console.log(API);
 const onSubmit = handleSubmit(async (values) => {
 
   try {
     const response = await axios.post( `${import.meta.env.VITE_APP_API_URL}/login`, values)
     document.cookie = `token=${response.data.token}`;
     document.cookie = `userLogin=${response.data.userlogin}`;
-    console.log(response.data.data)
     localStorage.setItem('token', response.data.data.token);
     localStorage.setItem('userLogin', response.data.data.user._id);
     localStorage.setItem('username', response.data.data.user.username);
-    console.log(response.data.data.token)
-    console.log(response.data.data.user._id)
     toast.add({ severity: "success", summary: "Success", detail: "Berhasil Masuk" });
-    console.log(response.data)
     // Redirect to another page
     router.push('/home');
   } catch (error) {
