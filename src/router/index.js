@@ -18,7 +18,7 @@ const routes = [
       {
         path: '/',
         component: () => import('@/pages/LandingPage.vue'),
-        meta: { title: 'Landing Page' },
+        meta: { title: 'Sekretariat Diskominfo' },
       },
       {
         path: '/login',
