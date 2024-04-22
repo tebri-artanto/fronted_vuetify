@@ -224,8 +224,7 @@
               {{ slotProps.index + 1 }}
             </template>
           </Column>
-          <Column field="judul" header="Judul" sortable></Column>
-          <Column field="namaKegiatan" header="Kategori" sortable></Column>
+          <Column field="namaKegiatan" header="Nama Kegiatan" sortable></Column>
           <Column field="deskripsi" header="Deskripsi" sortable></Column>
           <Column header="Download File">
             <template #body="slotProps">
