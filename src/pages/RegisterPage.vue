@@ -3,7 +3,7 @@
     <Card>
       <template #title>
         <h2 class="mt-6 text-center text-3xl font-extrabold">
-          Daftartkan Akun Baru
+          Daftarkan Akun Baru
         </h2>
       </template>
       <template #content>
